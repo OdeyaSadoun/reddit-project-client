@@ -14,32 +14,41 @@ import {
   Typography,
 } from "@mui/material";
 
+interface RegisterProps {}
 
-const Register = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const Register: React.FC<RegisterProps> = () => {
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-  const API_URL = "http://localhost:8000";
+  const API_URL: string = "http://localhost:8000";
 
   const handleRegister = async () => {
     
-    let newUser = {
-      "name": name,
-      "email": email,
-      "password": password,
-      "created_date": new Date()
+    let newUser: {
+      name: string;
+      email: string;
+      password: string;
+      created_date: Date;
+    } = {
+      name,
+      email,
+      password,
+      created_date: new Date(),
     };
-    
+
     try {
-      let userInDb = await axios.post(`${API_URL}/users/register`, newUser, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      
+      let userInDb = await axios.post(
+        `${API_URL}/users/register`,
+        newUser,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
       console.log("user", userInDb.data);
-    
     } catch (err) {
       console.log("err:", err);
     }
@@ -55,7 +64,7 @@ const Register = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            p: 3, // Optional: Add padding if needed
+            p: 3,
             boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
             border: "2px solid #E5D6F2",
           }}

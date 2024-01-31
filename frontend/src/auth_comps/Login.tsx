@@ -14,28 +14,35 @@ import {
   Grid,
 } from "@mui/material";
 
+interface LoginProps {}
 
-const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const Login: React.FC<LoginProps> = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-  const API_URL = "http://localhost:8000";
-
+  const API_URL: string = "http://localhost:8000";
 
   const handleLogin = async () => {
 
-    let loginUser = {
-      email: email,
-      password: password,
+    let loginUser: {
+      email: string;
+      password: string;
+    } = {
+      email,
+      password
+    };
+
+    type UserTokenResponse = {
+      token: string;
     };
 
     try {
-      let userToken = await axios.post(`${API_URL}/auth/login`, loginUser, {
+      let userToken = await axios.post<UserTokenResponse>(`${API_URL}/auth/login`, loginUser, {
         headers: {
           "Content-Type": "application/json",
         },
       });
-      
+
       console.log("user", userToken.data);
 
     } catch (err) {
