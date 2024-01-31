@@ -1,9 +1,9 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import Home from "./static_comps/Home";
+import Login from "./auth_comps/Login";
+import Register from "./auth_comps/Register";
 
 function App() {
   return (

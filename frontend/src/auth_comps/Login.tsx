@@ -24,13 +24,16 @@ const Login = () => {
         <CssBaseline />
         <Box
           sx={{
-            mt: 20,
+            mt: 15,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            p: 3, // Optional: Add padding if needed
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+            border: "2px solid #E5D6F2"
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "primary.light" }}>
+          <Avatar sx={{ m: 1, bgcolor: "#F5B3D7" }}>
             <LockOutlined />
           </Avatar>
           <Typography variant="h5">Login</Typography>
@@ -64,14 +67,22 @@ const Login = () => {
             <Button
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{
+                mt: 3,
+                mb: 2,
+                backgroundColor: "#EDC2F0", 
+                "&:hover": {
+                  backgroundColor: "#EDC2F0", 
+                },
+              }}
               onClick={handleLogin}
             >
               Login
             </Button>
-            <Grid container justifyContent={"flex-end"}>
+            <Grid container justifyContent={"center"}>
+            <Grid item>Don't have an account? </Grid>
               <Grid item>
-                <Link to="/register">Don't have an account? Register</Link>
+                <Link to="/register">Register</Link>
               </Grid>
             </Grid>
           </Box>
