@@ -1,4 +1,8 @@
 import axios from "axios";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+
+import { LockOutlined } from "@mui/icons-material";
 import {
   Avatar,
   Box,
@@ -9,9 +13,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { LockOutlined } from "@mui/icons-material";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -21,7 +23,6 @@ const Register = () => {
   const API_URL = "http://localhost:8000";
 
   const handleRegister = async () => {
-    console.log("enter register");
     
     let newUser = {
       "name": name,
@@ -29,7 +30,6 @@ const Register = () => {
       "password": password,
       "created_date": new Date()
     };
-    console.log({ newUser });
     
     try {
       let userInDb = await axios.post(`${API_URL}/users/register`, newUser, {
@@ -37,6 +37,7 @@ const Register = () => {
           'Content-Type': 'application/json',
         },
       });
+      
       console.log("user", userInDb.data);
     
     } catch (err) {
