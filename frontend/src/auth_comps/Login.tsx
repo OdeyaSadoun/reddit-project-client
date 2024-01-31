@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { LockOutlined } from "@mui/icons-material";
 import {
@@ -20,30 +20,52 @@ const Login: React.FC<LoginProps> = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
+  const nav = useNavigate();
+
   const API_URL: string = "http://localhost:8000";
 
   const handleLogin = async () => {
-
     let loginUser: {
       email: string;
       password: string;
     } = {
       email,
-      password
+      password,
     };
 
     type UserTokenResponse = {
-      token: string;
+      access_token: string;
+      refresh_token : string;
     };
 
     try {
-      let userToken = await axios.post<UserTokenResponse>(`${API_URL}/auth/login`, loginUser, {
+      let userToken = await axios.post<UserTokenResponse>(
+        `${API_URL}/auth/login`,
+        loginUser,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log("token", userToken.data);
+
+      type UserResponse = {
+        name: string;
+        email : string;
+      };
+
+      let currentUser = await axios.get<UserResponse>(`${API_URL}/users/get_user_info`, {
         headers: {
+          Authorization: `Bearer ${userToken.data.access_token}`,
           "Content-Type": "application/json",
         },
       });
 
-      console.log("user", userToken.data);
+      console.log("current user", currentUser.data);
+
+      nav(`/home/${currentUser.data.name}`);
 
     } catch (err) {
       console.log("err:", err);
