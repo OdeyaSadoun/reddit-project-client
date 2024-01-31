@@ -1,3 +1,7 @@
+import axios from "axios";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+
 import { LockOutlined } from "@mui/icons-material";
 import {
   Container,
@@ -9,14 +13,35 @@ import {
   Button,
   Grid,
 } from "@mui/material";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {};
+  const API_URL = "http://localhost:8000";
+
+
+  const handleLogin = async () => {
+
+    let loginUser = {
+      email: email,
+      password: password,
+    };
+
+    try {
+      let userToken = await axios.post(`${API_URL}/auth/login`, loginUser, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      
+      console.log("user", userToken.data);
+
+    } catch (err) {
+      console.log("err:", err);
+    }
+  };
 
   return (
     <>
@@ -30,7 +55,7 @@ const Login = () => {
             alignItems: "center",
             p: 3, // Optional: Add padding if needed
             boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-            border: "2px solid #E5D6F2"
+            border: "2px solid #E5D6F2",
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: "#F5B3D7" }}>
@@ -70,9 +95,9 @@ const Login = () => {
               sx={{
                 mt: 3,
                 mb: 2,
-                backgroundColor: "#EDC2F0", 
+                backgroundColor: "#EDC2F0",
                 "&:hover": {
-                  backgroundColor: "#EDC2F0", 
+                  backgroundColor: "#EDC2F0",
                 },
               }}
               onClick={handleLogin}
@@ -80,7 +105,7 @@ const Login = () => {
               Login
             </Button>
             <Grid container justifyContent={"center"}>
-            <Grid item>Don't have an account? </Grid>
+              <Grid item>Don't have an account? </Grid>
               <Grid item>
                 <Link to="/register">Register</Link>
               </Grid>
