@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import RedditItem from "./RedditItem";
 import axios from "axios";
 import { Subreddit } from "../interfaces/Subreddit.interface";
-import SearchBar from "../static_comps/SearchButton";
+import SearchBar from "../static_comps/SearchBar";
 
 
 const RedditHome = () => {
