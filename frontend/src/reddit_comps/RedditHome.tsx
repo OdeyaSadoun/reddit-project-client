@@ -30,7 +30,7 @@ const RedditHome = () => {
   return (
     <div>
       <SearchBar/>
-      <h2>{reddit}</h2>
+      <h2 className="my-5">{reddit}</h2>
       {loading ? (
         <p>Loading...</p>
       ) : (

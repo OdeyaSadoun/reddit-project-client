@@ -6,8 +6,11 @@ interface RedditItemProps {
 }
 
 const RedditItem: React.FC<RedditItemProps> = ({ item }) => {
-  console.log("Rendering RedditItem:", item.title); // Log the title
-  return <div>{item.title}</div>;
+  return (
+    <div className="border border-danger my-2">
+      {item.title}
+    </div>
+  );
 };
 
 export default RedditItem;
