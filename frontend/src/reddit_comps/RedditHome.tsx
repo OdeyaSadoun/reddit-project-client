@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import RedditItem from "./RedditItem";
 import axios from "axios";
 import { Subreddit } from "../interfaces/Subreddit.interface";
+import SearchBar from "../static_comps/SearchButton";
+
 
 const RedditHome = () => {
-  const [reddit, setReddit] = useState<string>("");
+  const [reddit, setReddit] = useState<string>("python");
   const [subreddits, setSubreddits] = useState<Subreddit[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -27,6 +29,7 @@ const RedditHome = () => {
 
   return (
     <div>
+      <SearchBar/>
       <h2>{reddit}</h2>
       {loading ? (
         <p>Loading...</p>
