@@ -28,7 +28,7 @@ const RedditHome = () => {
   }, []);
 
   return (
-    <div>
+    <div className="container">
       <SearchBar/>
       <h2 className="my-5">{reddit}</h2>
       {loading ? (
