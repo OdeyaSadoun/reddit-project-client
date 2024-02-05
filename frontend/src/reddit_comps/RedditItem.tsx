@@ -2,11 +2,8 @@ import React, { useState } from "react";
 import { Subreddit } from "../interfaces/Subreddit.interface";
 import { Card, Button, Badge } from "react-bootstrap";
 
-interface RedditItemProps {
-  item: Subreddit;
-}
 
-const RedditItem: React.FC<RedditItemProps> = ({ item }) => {
+const RedditItem: React.FC<{item: Subreddit}> = ({ item }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleExpansion = () => {

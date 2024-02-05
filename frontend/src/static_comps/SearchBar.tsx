@@ -1,6 +1,22 @@
+// SearchBar.jsx
+import React, { useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 
-export default function SearchBar() {
+interface SearchBarProps {
+  setSearchData: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const SearchBar: React.FC<SearchBarProps> = ({ setSearchData }) => {
+  const [inputValue, setInputValue] = useState<string>("");
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleSearch = () => {
+    setSearchData(inputValue);
+  };
+
   return (
     <Container className="mt-5">
       <Row>
@@ -11,8 +27,10 @@ export default function SearchBar() {
               placeholder="Search"
               className="me-2"
               aria-label="Search"
+              value={inputValue}
+              onChange={handleInputChange}
             />
-            <Button>
+            <Button onClick={handleSearch}>
               Search
             </Button>
           </Form>
@@ -20,4 +38,6 @@ export default function SearchBar() {
       </Row>
     </Container>
   );
-}
+};
+
+export default SearchBar;
