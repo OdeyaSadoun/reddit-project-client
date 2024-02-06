@@ -6,44 +6,51 @@ import { Subreddit } from "../interfaces/Subreddit.interface";
 import SearchBar from "../static_comps/SearchBar";
 import CategoriesSelector from "./CategoriesSelector";
 
-const RedditHome = () => {
+const RedditHome: React.FC = () => {
   const [subreddits, setSubreddits] = useState<Subreddit[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [searchData, setSearchData] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
 
-  const getSubreddits = async (reddit: string, category: string) => {
+  const getSubreddits = async () => {
     try {
       setLoading(true);
       let redditData = await axios.get<Subreddit[]>(
-        `http://127.0.0.1:8000/reddits/get_posts_by_subreddit?subreddit=${reddit}&category=${category}`
+        `http://127.0.0.1:8000/reddits/get_posts_by_subreddit?subreddit=${searchData}&category=${selectedCategory}`
       );
       setLoading(false);
-
-      setSubreddits(redditData.data);
+      return redditData.data;
     } catch (error) {
       console.error("Error fetching subreddits:", error);
+      return [];
     }
   };
 
-  const handleCategoryChange = (category: string) => {
-    setSelectedCategory(category);
-  };
-
   useEffect(() => {
-    console.log({searchData});
-    console.log({selectedCategory});
-    
-    getSubreddits(searchData, selectedCategory);
+    console.log({ searchData });
+    console.log({ selectedCategory });
+
+    const fetchData = async () => {
+      const subredditsBySearchAndCategory = await getSubreddits();
+      setSubreddits(subredditsBySearchAndCategory);
+    };
+
+    fetchData();
   }, [searchData, selectedCategory]);
 
   return (
-    <div className="container">
-      <SearchBar setSearchData={setSearchData} />
-      <CategoriesSelector
-        selectedCategory={selectedCategory}
-        onSelectCategory={handleCategoryChange}
-      />
+    <div className="container my-5">
+      <div className="d-flex justify-content-between align-items-center">
+        <div className="col-md-6">
+          <SearchBar  setSearchData={setSearchData} />
+        </div>
+        <div className="col-md-6 text-end pe-2">
+          <CategoriesSelector
+            setSelectedCategory={setSelectedCategory}
+            selectedCategory={selectedCategory}
+          />
+        </div>
+      </div>
       <h2 className="my-5 text-center">{searchData}</h2>
       <h2 className="my-5 text-center">{selectedCategory}</h2>
       {loading ? (

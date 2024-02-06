@@ -18,9 +18,9 @@ const SearchBar: React.FC<SearchBarProps> = ({ setSearchData }) => {
   };
 
   return (
-    <Container className="mt-5">
+    <Container>
       <Row>
-        <Col sm={4}>
+        <Col>
           <Form className="d-flex">
             <Form.Control
               type="search"

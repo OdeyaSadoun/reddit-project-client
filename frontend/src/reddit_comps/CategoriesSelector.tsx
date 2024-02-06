@@ -1,13 +1,13 @@
 // CategoriesSelector.tsx
 import React from "react";
-import { ButtonGroup, ToggleButton, ToggleButtonProps } from "react-bootstrap";
+import { ButtonGroup, ToggleButton } from "react-bootstrap";
 
 interface CategoriesSelectorProps {
   selectedCategory: string;
-  onSelectCategory: (category: string) => void;
+  setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const CategoriesSelector: React.FC<CategoriesSelectorProps> = ({ selectedCategory, onSelectCategory }) => {
+const CategoriesSelector: React.FC<CategoriesSelectorProps> = ({ selectedCategory, setSelectedCategory }) => {
   const categories = ["hot", "rising", "new", "top"];
 
   return (
@@ -19,7 +19,7 @@ const CategoriesSelector: React.FC<CategoriesSelectorProps> = ({ selectedCategor
           variant="outline-primary"
           value={category}
           checked={selectedCategory === category}
-          onChange={() => onSelectCategory(category)}
+          onChange={() => setSelectedCategory(category)}
           id={`category-${category}`}
         >
           {category.charAt(0).toUpperCase() + category.slice(1)}
