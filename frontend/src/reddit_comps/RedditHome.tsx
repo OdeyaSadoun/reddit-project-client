@@ -15,36 +15,39 @@ const RedditHome: React.FC = () => {
 
   const API_URL: string = "http://localhost:8000";
 
-  const saveSearchToDatabase = async (searchData: string, selectedCategory: string, subreddits: Subreddit[]) => {
+  const saveSearchToDatabase = async (
+    searchData: string,
+    selectedCategory: string,
+    subreddits: Subreddit[]
+  ) => {
     try {
-        const user: any = JSON.parse(localStorage.getItem('user') || '');
-        console.log({ user });
-    //   if (!userIdStr) {
-    //     throw new Error('User ID is not available in local storage');
-    //   }
-  
-    //   const userId = Number(user.id); // Convert user ID to number
-    //   if (isNaN(userId)) {
-    //     throw new Error('User ID is not a valid number');
-    //   }
-  
-    //   const response = await axios.post(
-    //     `${API_URL}/reddits/redditsearches/`,
-    //     {
-    //       reddit_search: {
-    //         // user_id: userId,
-    //         reddit: searchData,
-    //         category: selectedCategory,
-    //       }
-    //     }
-    //   );
+      const user: any = JSON.parse(localStorage.getItem("user") || "");
+      console.log({ user });
+      if (!user) {
+        throw new Error("User ID is not available in local storage");
+      }
+
+      const userId = Number(user.id); // Convert user ID to number
+      if (isNaN(userId)) {
+        throw new Error("User ID is not a valid number");
+      }
+
+      let reddit_search = {
+        user_id: userId,
+        reddit: searchData,
+        category: selectedCategory,
+      };
+
+      console.log({reddit_search});
       
-    //   console.log('Search data saved successfully:', response.data);
+
+      const response = await axios.post(`${API_URL}/reddits/redditsearches/`, reddit_search);
+
+      console.log("Search data saved successfully:", response.data);
     } catch (error) {
-      console.error('Error saving search data:', error);
+      console.error("Error saving search data:", error);
     }
   };
-  
 
   const getSubreddits = async () => {
     try {
@@ -52,7 +55,7 @@ const RedditHome: React.FC = () => {
       let redditData: Subreddit[] = [];
       if (searchData !== "" && selectedCategory !== "") {
         console.log("enter");
-        
+
         const response = await axios.get<Subreddit[]>(
           `${API_URL}/reddits/get_posts_by_subreddit?subreddit=${searchData}&category=${selectedCategory}`
         );
@@ -71,9 +74,13 @@ const RedditHome: React.FC = () => {
     const fetchData = async () => {
       const subredditsBySearchAndCategory = await getSubreddits();
       setSubreddits(subredditsBySearchAndCategory);
-      saveSearchToDatabase(searchData, selectedCategory, subredditsBySearchAndCategory);
+      saveSearchToDatabase(
+        searchData,
+        selectedCategory,
+        subredditsBySearchAndCategory
+      );
     };
-  
+
     fetchData();
   }, [searchData, selectedCategory]);
 
@@ -92,7 +99,7 @@ const RedditHome: React.FC = () => {
       </div>
       <h2 className="my-5 text-center">{searchData}</h2>
       {loading ? (
-        <Loading/>
+        <Loading />
       ) : (
         <div>
           {subreddits.map((item, index) => (
