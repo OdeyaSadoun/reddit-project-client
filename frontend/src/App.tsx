@@ -1,23 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-
+import { configureStore } from "@reduxjs/toolkit";
+import { Provider } from "react-redux";
+import { AppContext, ContextType } from "./context/Context";
+import userSlice from "./features/userSlice";
+import Header from "./static_comps/Header";
 import Home from "./static_comps/Home";
-import HomeUser from "./user_comps/HomeUser";
 import Login from "./auth_comps/Login";
 import Register from "./auth_comps/Register";
 import RedditHome from "./reddit_comps/RedditHome";
+import Footer from "./static_comps/Footer";
+
+const myStore = configureStore({
+  reducer: {
+    userSlice,
+  },
+});
 
 function App() {
+  const [showInfo, setShowInfo] = useState(false);
+
+  const closeUserIconDiv = () => {
+    setShowInfo(!showInfo);
+  };
+
+  const value: ContextType = {
+    showInfo: showInfo,
+    setShowInfo: setShowInfo,
+  };
+
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/home/:username" element={<HomeUser />} />
-        <Route path="/reddit" element={<RedditHome />} />
-      </Routes>
-    </>
+    <AppContext.Provider value={value}>
+      <Provider store={myStore}>
+        <Header /> 
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/user/:username/home/" element={<Home />} />
+          <Route path="/reddit" element={<RedditHome />} />
+          <Route path="/" element={<Home />} />
+        </Routes>
+        <Footer />
+      </Provider>
+    </AppContext.Provider>
   );
 }
 
