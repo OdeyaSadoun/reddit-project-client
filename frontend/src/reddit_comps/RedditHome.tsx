@@ -15,11 +15,7 @@ const RedditHome: React.FC = () => {
 
   const API_URL: string = "http://localhost:8000";
 
-  const saveSearchToDatabase = async (
-    searchData: string,
-    selectedCategory: string,
-    subreddits: Subreddit[]
-  ) => {
+  const saveSearchToDatabase = async () => {
     try {
       const user: any = JSON.parse(localStorage.getItem("user") || "");
       console.log({ user });
@@ -38,10 +34,12 @@ const RedditHome: React.FC = () => {
         category: selectedCategory,
       };
 
-      console.log({reddit_search});
-      
+      console.log({ reddit_search });
 
-      const response = await axios.post(`${API_URL}/reddits/redditsearches/`, reddit_search);
+      const response = await axios.post(
+        `${API_URL}/reddits/redditsearches/`,
+        reddit_search
+      );
 
       console.log("Search data saved successfully:", response.data);
     } catch (error) {
@@ -51,17 +49,17 @@ const RedditHome: React.FC = () => {
 
   const getSubreddits = async () => {
     try {
-      setLoading(true);
       let redditData: Subreddit[] = [];
       if (searchData !== "" && selectedCategory !== "") {
-        console.log("enter");
+        console.log(searchData, selectedCategory);
 
         const response = await axios.get<Subreddit[]>(
           `${API_URL}/reddits/get_posts_by_subreddit?subreddit=${searchData}&category=${selectedCategory}`
         );
         redditData = response.data;
+        console.log({ redditData });
+
       }
-      setLoading(false);
       return redditData;
     } catch (error) {
       console.error("Error fetching subreddits:", error);
@@ -71,17 +69,23 @@ const RedditHome: React.FC = () => {
   };
 
   useEffect(() => {
+
     const fetchData = async () => {
-      const subredditsBySearchAndCategory = await getSubreddits();
-      setSubreddits(subredditsBySearchAndCategory);
-      saveSearchToDatabase(
-        searchData,
-        selectedCategory,
-        subredditsBySearchAndCategory
-      );
+      try {
+        setLoading(true);
+        console.log("true - loading");
+        const subredditsBySearchAndCategory = await getSubreddits();
+        setSubreddits(subredditsBySearchAndCategory);
+        setLoading(false);
+        console.log("false - loading");
+        await saveSearchToDatabase();
+      } catch (error) {
+        console.error("Error fetching subreddits:", error);
+      }
     };
 
     fetchData();
+
   }, [searchData, selectedCategory]);
 
   return (

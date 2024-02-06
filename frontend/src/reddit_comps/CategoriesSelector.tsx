@@ -8,7 +8,7 @@ interface CategoriesSelectorProps {
 }
 
 const CategoriesSelector: React.FC<CategoriesSelectorProps> = ({ selectedCategory, setSelectedCategory }) => {
-  const categories = ["Hot", "Rising", "New", "Top"];
+  const categories = ["hot", "rising", "new", "top"];
 
   return (
     <ButtonGroup>
