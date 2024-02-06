@@ -5,6 +5,7 @@ import axios from "axios";
 import { Subreddit } from "../interfaces/Subreddit.interface";
 import SearchBar from "../static_comps/SearchBar";
 import CategoriesSelector from "./CategoriesSelector";
+import Loading from "../static_comps/Loading";
 
 const RedditHome: React.FC = () => {
   const [subreddits, setSubreddits] = useState<Subreddit[]>([]);
@@ -32,7 +33,6 @@ const RedditHome: React.FC = () => {
       return [];
     }
   };
-  
 
   useEffect(() => {
     console.log({ searchData });
@@ -60,8 +60,8 @@ const RedditHome: React.FC = () => {
         </div>
       </div>
       <h2 className="my-5 text-center">{searchData}</h2>
-      {loading && subreddits.length <= 0 ? (
-        <p>Loading...</p>
+      {loading ? (
+        <Loading/>
       ) : (
         <div>
           {subreddits.map((item, index) => (
