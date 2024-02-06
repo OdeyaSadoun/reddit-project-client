@@ -3,7 +3,7 @@ import RedditHome from '../reddit_comps/RedditHome'
 
 const HomeUser = () => {
   return (
-    <RedditHome/>
+      <RedditHome/>
   )
 }
 

@@ -4,12 +4,13 @@ import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import { AppContext, ContextType } from "./context/Context";
 import userSlice from "./features/userSlice";
-import Header from "./static_comps/Header";
 import Home from "./static_comps/Home";
 import Login from "./auth_comps/Login";
 import Register from "./auth_comps/Register";
 import RedditHome from "./reddit_comps/RedditHome";
 import Footer from "./static_comps/Footer";
+import Header from "./static_comps/Header";
+import HomeUser from "./user_comps/HomeUser";
 
 const myStore = configureStore({
   reducer: {
@@ -36,7 +37,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/user/:username/home/" element={<Home />} />
+          <Route path="/home/:username" element={<HomeUser />} />
           <Route path="/reddit" element={<RedditHome />} />
           <Route path="/" element={<Home />} />
         </Routes>
