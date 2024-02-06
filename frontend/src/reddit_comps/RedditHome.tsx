@@ -9,22 +9,30 @@ import CategoriesSelector from "./CategoriesSelector";
 const RedditHome: React.FC = () => {
   const [subreddits, setSubreddits] = useState<Subreddit[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [searchData, setSearchData] = useState<string>("");
-  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [searchData, setSearchData] = useState<string>("python");
+  const [selectedCategory, setSelectedCategory] = useState<string>("new");
 
   const getSubreddits = async () => {
     try {
       setLoading(true);
-      let redditData = await axios.get<Subreddit[]>(
-        `http://127.0.0.1:8000/reddits/get_posts_by_subreddit?subreddit=${searchData}&category=${selectedCategory}`
-      );
+      let redditData: Subreddit[] = [];
+      if (searchData !== "" && selectedCategory !== "") {
+        console.log("enter");
+        
+        const response = await axios.get<Subreddit[]>(
+          `http://127.0.0.1:8000/reddits/get_posts_by_subreddit?subreddit=${searchData}&category=${selectedCategory}`
+        );
+        redditData = response.data;
+      }
       setLoading(false);
-      return redditData.data;
+      return redditData;
     } catch (error) {
       console.error("Error fetching subreddits:", error);
+      setLoading(false);
       return [];
     }
   };
+  
 
   useEffect(() => {
     console.log({ searchData });
@@ -42,7 +50,7 @@ const RedditHome: React.FC = () => {
     <div className="container my-5">
       <div className="d-flex justify-content-between align-items-center">
         <div className="col-md-6">
-          <SearchBar  setSearchData={setSearchData} />
+          <SearchBar setSearchData={setSearchData} />
         </div>
         <div className="col-md-6 text-end pe-2">
           <CategoriesSelector
@@ -52,8 +60,7 @@ const RedditHome: React.FC = () => {
         </div>
       </div>
       <h2 className="my-5 text-center">{searchData}</h2>
-      <h2 className="my-5 text-center">{selectedCategory}</h2>
-      {loading ? (
+      {loading && subreddits.length <= 0 ? (
         <p>Loading...</p>
       ) : (
         <div>
