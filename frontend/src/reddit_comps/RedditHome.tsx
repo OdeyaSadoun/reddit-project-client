@@ -15,6 +15,36 @@ const RedditHome: React.FC = () => {
 
   const API_URL: string = "http://localhost:8000";
 
+  const saveSearchToDatabase = async (searchData: string, selectedCategory: string, subreddits: Subreddit[]) => {
+    try {
+        const user: any = JSON.parse(localStorage.getItem('user') || '');
+        console.log({ user });
+    //   if (!userIdStr) {
+    //     throw new Error('User ID is not available in local storage');
+    //   }
+  
+    //   const userId = Number(user.id); // Convert user ID to number
+    //   if (isNaN(userId)) {
+    //     throw new Error('User ID is not a valid number');
+    //   }
+  
+    //   const response = await axios.post(
+    //     `${API_URL}/reddits/redditsearches/`,
+    //     {
+    //       reddit_search: {
+    //         // user_id: userId,
+    //         reddit: searchData,
+    //         category: selectedCategory,
+    //       }
+    //     }
+    //   );
+      
+    //   console.log('Search data saved successfully:', response.data);
+    } catch (error) {
+      console.error('Error saving search data:', error);
+    }
+  };
+  
 
   const getSubreddits = async () => {
     try {
@@ -38,14 +68,12 @@ const RedditHome: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log({ searchData });
-    console.log({ selectedCategory });
-
     const fetchData = async () => {
       const subredditsBySearchAndCategory = await getSubreddits();
       setSubreddits(subredditsBySearchAndCategory);
+      saveSearchToDatabase(searchData, selectedCategory, subredditsBySearchAndCategory);
     };
-
+  
     fetchData();
   }, [searchData, selectedCategory]);
 
