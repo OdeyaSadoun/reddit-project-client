@@ -13,6 +13,9 @@ const RedditHome: React.FC = () => {
   const [searchData, setSearchData] = useState<string>("python");
   const [selectedCategory, setSelectedCategory] = useState<string>("new");
 
+  const API_URL: string = "http://localhost:8000";
+
+
   const getSubreddits = async () => {
     try {
       setLoading(true);
@@ -21,7 +24,7 @@ const RedditHome: React.FC = () => {
         console.log("enter");
         
         const response = await axios.get<Subreddit[]>(
-          `http://127.0.0.1:8000/reddits/get_posts_by_subreddit?subreddit=${searchData}&category=${selectedCategory}`
+          `${API_URL}/reddits/get_posts_by_subreddit?subreddit=${searchData}&category=${selectedCategory}`
         );
         redditData = response.data;
       }

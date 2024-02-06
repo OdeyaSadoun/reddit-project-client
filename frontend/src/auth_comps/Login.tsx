@@ -50,8 +50,12 @@ const Login: React.FC<LoginProps> = () => {
       );
 
       console.log("token", userToken.data);
+      localStorage.setItem('access_token', userToken.data.access_token);
+      localStorage.setItem('refresh_token', userToken.data.refresh_token);
+  
 
       type UserResponse = {
+        id: number;
         name: string;
         email : string;
       };
@@ -64,6 +68,8 @@ const Login: React.FC<LoginProps> = () => {
       });
 
       console.log("current user", currentUser.data);
+
+      localStorage.setItem('user', JSON.stringify(currentUser.data));
 
       nav(`/home/${currentUser.data.name}`);
 
