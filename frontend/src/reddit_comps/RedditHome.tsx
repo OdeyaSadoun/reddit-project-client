@@ -42,10 +42,30 @@ const RedditHome: React.FC = () => {
       );
 
       console.log("Search data saved successfully:", response.data);
+      return response.data;
     } catch (error) {
       console.error("Error saving search data:", error);
     }
   };
+
+  const sendSubredditsToServer = async (redditId:number) => {
+    try {
+        console.log({subreddits});
+        
+      // עבור כל תת-רדיט ברשימת התת-רדיטים, הוסף את השדה 'redditId'
+      let subredditstoDB = subreddits.map(subreddit => ({ ...subreddit, reddit_id: redditId }));
+      console.log({subredditstoDB});
+      
+  
+      // שלח את התת-רדיטים לשרת
+      const response = await axios.post(`${API_URL}/reddits/subredditsearches`, subredditstoDB);
+      console.log("Subreddits sent to server:", response.data);
+    } catch (error) {
+      console.error("Error sending subreddits to server:", error);
+    }
+  };
+  
+  
 
   const getSubreddits = async () => {
     try {
@@ -78,7 +98,10 @@ const RedditHome: React.FC = () => {
         setSubreddits(subredditsBySearchAndCategory);
         setLoading(false);
         console.log("false - loading");
-        await saveSearchToDatabase();
+        let response = await saveSearchToDatabase();
+        // console.log({subredditsBySearchAndCategory.id});
+        
+        await sendSubredditsToServer(response.id);
       } catch (error) {
         console.error("Error fetching subreddits:", error);
       }
