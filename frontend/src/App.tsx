@@ -38,6 +38,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/home/:username" element={<HomeUser />} />
+          {/* <Route path="/home/:username" element={<HomeUser />} /> */}
           <Route path="/reddit" element={<RedditHome />} />
           <Route path="/" element={<Home />} />
         </Routes>
