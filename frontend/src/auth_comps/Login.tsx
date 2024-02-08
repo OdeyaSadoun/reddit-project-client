@@ -15,7 +15,7 @@ import {
 import { UserTokenResponse } from "src/types/UserTokenResponse.type";
 import { UserResponse } from "src/types/UserResponse.type";
 
-const Login = () => {
+const Login :React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const nav = useNavigate();
