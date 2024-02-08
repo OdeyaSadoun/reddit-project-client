@@ -1,18 +1,13 @@
-// CategoriesSelector.tsx
 import React from "react";
 import { ButtonGroup, ToggleButton } from "react-bootstrap";
-
-interface CategoriesSelectorProps {
-  selectedCategory: string;
-  setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
-}
+import { CategoriesSelectorProps } from "src/interfaces/CategoriesSelectorProps.type";
 
 const CategoriesSelector: React.FC<CategoriesSelectorProps> = ({ selectedCategory, setSelectedCategory }) => {
-  const categories = ["hot", "rising", "new", "top"];
+  const categories: string[] = ["hot", "rising", "new", "top"];
 
   return (
     <ButtonGroup>
-      {categories.map((category) => (
+      {categories.map((category: string) => (
         <ToggleButton
           key={category}
           type="radio"
