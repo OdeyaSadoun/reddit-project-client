@@ -15,70 +15,59 @@ const RedditHome: React.FC = () => {
 
   const API_URL: string = "http://localhost:8000";
 
-  const saveSearchToDatabase = async () => {
+  const getUserFromLocalStorage = () => {
+    const user: any = JSON.parse(localStorage.getItem("user") || "");
+    if (!user) {
+      throw new Error("User ID is not available in local storage");
+    }
+
+    const userId = Number(user.id); // Convert user ID to number
+    if (isNaN(userId)) {
+      throw new Error("User ID is not a valid number");
+    }
+
+    return userId;
+  }
+
+  const saveSubredditSearchToDB = async () => {
     try {
-      const user: any = JSON.parse(localStorage.getItem("user") || "");
-      console.log({ user });
-      if (!user) {
-        throw new Error("User ID is not available in local storage");
-      }
+    let userId = getUserFromLocalStorage();
 
-      const userId = Number(user.id); // Convert user ID to number
-      if (isNaN(userId)) {
-        throw new Error("User ID is not a valid number");
-      }
-
-      let reddit_search = {
+      let subredditSearchToSave = {
         user_id: userId,
         reddit: searchData,
         category: selectedCategory,
       };
 
-      console.log({ reddit_search });
-
-      const response = await axios.post(
+      const reddirSearchResponse = await axios.post(
         `${API_URL}/reddits/redditsearches/`,
-        reddit_search
+        subredditSearchToSave
       );
-
-      console.log("Search data saved successfully:", response.data);
-      return response.data;
+      return reddirSearchResponse.data;
     } catch (error) {
       console.error("Error saving search data:", error);
     }
   };
 
-  const sendSubredditsToServer = async (redditId:number) => {
-    try {
-        console.log({subreddits});
-        
-      // עבור כל תת-רדיט ברשימת התת-רדיטים, הוסף את השדה 'redditId'
-      let subredditstoDB = subreddits.map(subreddit => ({ ...subreddit, reddit_id: redditId }));
-      console.log({subredditstoDB});
-      
-  
-      // שלח את התת-רדיטים לשרת
-      const response = await axios.post(`${API_URL}/reddits/subredditsearches`, subredditstoDB);
-      console.log("Subreddits sent to server:", response.data);
+  const saveSubredditPostsSearchToDB = async (redditId:number) => {
+    try {        
+      let subredditPostsWithSubredditId = subreddits.map(subreddit => ({ ...subreddit, reddit_id: redditId }));      
+      const subredditPostsResponse = await axios.post(`${API_URL}/reddits/subredditsearches`, subredditPostsWithSubredditId);
+      console.log("Subreddits sent to server:", subredditPostsResponse.data);
     } catch (error) {
       console.error("Error sending subreddits to server:", error);
     }
   };
-  
-  
 
   const getSubreddits = async () => {
     try {
       let redditData: Subreddit[] = [];
       if (searchData !== "" && selectedCategory !== "") {
-        console.log(searchData, selectedCategory);
-
-        const response = await axios.get<Subreddit[]>(
+        const SubredditPostsResponse = await axios.get<Subreddit[]>(
           `${API_URL}/reddits/get_posts_by_subreddit?subreddit=${searchData}&category=${selectedCategory}`
         );
-        redditData = response.data;
+        redditData = SubredditPostsResponse.data;
         console.log({ redditData });
-
       }
       return redditData;
     } catch (error) {
@@ -98,10 +87,10 @@ const RedditHome: React.FC = () => {
         setSubreddits(subredditsBySearchAndCategory);
         setLoading(false);
         console.log("false - loading");
-        let response = await saveSearchToDatabase();
+        let response = await saveSubredditSearchToDB();
         // console.log({subredditsBySearchAndCategory.id});
         
-        await sendSubredditsToServer(response.id);
+        await saveSubredditPostsSearchToDB(response.id);
       } catch (error) {
         console.error("Error fetching subreddits:", error);
       }
