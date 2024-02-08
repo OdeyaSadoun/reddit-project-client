@@ -1,13 +1,10 @@
 import { createContext } from "react";
-
-export interface ContextType{
-    showInfo: boolean,
-    setShowInfo: React.Dispatch<React.SetStateAction<boolean>>;
-}
+import { ContextType } from "src/interfaces/ContextType.interface";
 
 const ContextTypeDefault: ContextType = {
     showInfo: false,
     setShowInfo: ()=>{}
 }
 
-export const AppContext= createContext<ContextType>(ContextTypeDefault);
+export const AppContext = createContext<ContextType>(ContextTypeDefault);
+export type { ContextType }; 
