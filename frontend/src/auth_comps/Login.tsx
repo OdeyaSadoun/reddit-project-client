@@ -13,7 +13,7 @@ import {
   Grid,
 } from "@mui/material";
 import { UserTokenResponse } from "src/types/UserTokenResponse.type";
-import { UserResponse } from "src/types/UserResponse.type";
+import { User } from "src/types/UserResponse.type";
 
 const Login :React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -40,7 +40,7 @@ const Login :React.FC = () => {
 
   const getUserInfo = async (accessToken: string) => {
     try {
-      const currentUser = await axios.get<UserResponse>(
+      const currentUser = await axios.get<User>(
         `${API_URL}/users/get_user_info`,
         {
           headers: {
