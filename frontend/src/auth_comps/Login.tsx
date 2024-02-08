@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
 import { LockOutlined } from "@mui/icons-material";
 import {
   Container,
@@ -13,66 +12,68 @@ import {
   Button,
   Grid,
 } from "@mui/material";
+import { UserTokenResponse } from "src/types/UserTokenResponse.type";
+import { UserResponse } from "src/types/UserResponse.type";
 
-interface LoginProps {}
-
-const Login: React.FC<LoginProps> = () => {
+const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-
   const nav = useNavigate();
-
   const API_URL: string = "http://localhost:8000";
 
-  const handleLogin = async () => {
-    let loginUser: {
-      email: string;
-      password: string;
-    } = {
-      email,
-      password,
-    };
-
-    type UserTokenResponse = {
-      access_token: string;
-      refresh_token : string;
-    };
-
+  const loginUser = async (email: string, password: string) => {
     try {
-      let userToken = await axios.post<UserTokenResponse>(
+      const userToken = await axios.post<UserTokenResponse>(
         `${API_URL}/auth/login`,
-        loginUser,
+        { email, password },
         {
           headers: {
             "Content-Type": "application/json",
           },
         }
       );
+      return userToken.data;
+    } catch (err) {
+      throw err;
+    }
+  };
 
-      console.log("token", userToken.data);
-      localStorage.setItem('access_token', userToken.data.access_token);
-      localStorage.setItem('refresh_token', userToken.data.refresh_token);
-  
+  const getUserInfo = async (accessToken: string) => {
+    try {
+      const currentUser = await axios.get<UserResponse>(
+        `${API_URL}/users/get_user_info`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return currentUser.data;
+    } catch (err) {
+      throw err;
+    }
+  };
 
-      type UserResponse = {
-        id: number;
-        name: string;
-        email : string;
-      };
+  const saveTokensToLocalStorage = (
+    accessToken: string,
+    refreshToken: string
+  ) => {
+    localStorage.setItem("access_token", accessToken);
+    localStorage.setItem("refresh_token", refreshToken);
+  };
 
-      let currentUser = await axios.get<UserResponse>(`${API_URL}/users/get_user_info`, {
-        headers: {
-          Authorization: `Bearer ${userToken.data.access_token}`,
-          "Content-Type": "application/json",
-        },
-      });
+  const saveUserToLocalStorage = (user: any) => {
+    localStorage.setItem("user", JSON.stringify(user));
+  };
 
-      console.log("current user", currentUser.data);
-
-      localStorage.setItem('user', JSON.stringify(currentUser.data));
-
-      nav(`/home/${currentUser.data.name}`);
-
+  const handleLogin = async () => {
+    try {
+      const userToken = await loginUser(email, password);
+      saveTokensToLocalStorage(userToken.access_token, userToken.refresh_token);
+      const currentUser = await getUserInfo(userToken.access_token);
+      saveUserToLocalStorage(currentUser);
+      nav(`/home/${currentUser.name}`);
     } catch (err) {
       console.log("err:", err);
     }
@@ -109,7 +110,6 @@ const Login: React.FC<LoginProps> = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-
             <TextField
               margin="normal"
               required
@@ -123,7 +123,6 @@ const Login: React.FC<LoginProps> = () => {
                 setPassword(e.target.value);
               }}
             />
-
             <Button
               fullWidth
               variant="contained"
