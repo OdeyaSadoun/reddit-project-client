@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
 import { LockOutlined } from "@mui/icons-material";
 import {
   Avatar,
@@ -13,10 +12,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { newUser } from "src/types/NewUser.type";
 
-interface RegisterProps {}
-
-const Register: React.FC<RegisterProps> = () => {
+const Register: React.FC = () => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -24,13 +22,7 @@ const Register: React.FC<RegisterProps> = () => {
   const API_URL: string = "http://localhost:8000";
 
   const handleRegister = async () => {
-    
-    let newUser: {
-      name: string;
-      email: string;
-      password: string;
-      created_date: Date;
-    } = {
+    const newUser: newUser = {
       name,
       email,
       password,
@@ -38,17 +30,15 @@ const Register: React.FC<RegisterProps> = () => {
     };
 
     try {
-      let userInDb = await axios.post(
+      const userInDb = await axios.post(
         `${API_URL}/users/register`,
         newUser,
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         }
       );
-
-      console.log("user", userInDb.data);
     } catch (err) {
       console.log("err:", err);
     }
@@ -91,7 +81,6 @@ const Register: React.FC<RegisterProps> = () => {
                   onChange={(e) => setName(e.target.value)}
                 />
               </Grid>
-
               <Grid item xs={12}>
                 <TextField
                   required
