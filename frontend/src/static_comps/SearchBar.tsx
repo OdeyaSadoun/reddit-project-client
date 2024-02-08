@@ -1,15 +1,12 @@
-// SearchBar.jsx
-import React, { useState } from "react";
+import React, { useState, ChangeEvent } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { SearchBarProps } from "src/interfaces/SearchBarProps.interface";
 
-interface SearchBarProps {
-  setSearchData: React.Dispatch<React.SetStateAction<string>>;
-}
 
 const SearchBar: React.FC<SearchBarProps> = ({ setSearchData }) => {
   const [inputValue, setInputValue] = useState<string>("");
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
