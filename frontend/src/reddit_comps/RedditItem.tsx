@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-import { Subreddit } from "../interfaces/Subreddit.interface";
 import { Card, Button, Badge } from "react-bootstrap";
+import { RedditItemProps } from "src/interfaces/RedditItemProps.interface";
 
 
-const RedditItem: React.FC<{item: Subreddit}> = ({ item }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+const RedditItem: React.FC<RedditItemProps> = ({ item }) => {
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   const toggleExpansion = () => {
     setIsExpanded(!isExpanded);
   };
-
 
   return (
     <Card className="my-3">
@@ -30,18 +29,22 @@ const RedditItem: React.FC<{item: Subreddit}> = ({ item }) => {
               {isExpanded ? "close" : "read more"}
             </Button>
           )}
-          
         </div>
         <div>
-        {item.sentiment && (
-         <Badge
-         className={`my-2 ${item.sentiment === "positive" ? "bg-success" : item.sentiment === "negative" ? "bg-danger" : "bg-warning"}`}
-       >
-         {item.sentiment}
-       </Badge>
-
+          {item.sentiment && (
+            <Badge
+              className={`my-2 ${
+                item.sentiment === "positive"
+                  ? "bg-success"
+                  : item.sentiment === "negative"
+                  ? "bg-danger"
+                  : "bg-warning"
+              }`}
+            >
+              {item.sentiment}
+            </Badge>
           )}
-          </div>
+        </div>
       </Card.Body>
     </Card>
   );
