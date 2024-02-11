@@ -6,4 +6,5 @@ export interface Subreddit {
     downs: number;
     score: number;
     sentiment: string;
+    reddit_id: number | null
   }
