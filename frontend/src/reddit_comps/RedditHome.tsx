@@ -69,14 +69,14 @@ const RedditHome: React.FC = () => {
   const saveSubredditPostsSearchToDB = async (redditId: number, subredditsBySearchAndCategory:Subreddit[] ) : Promise<void> => {
     try {
       
-      let subredditPostsWithSubredditId = subredditsBySearchAndCategory.map((subreddit) => ({
+      let subredditPostsWithSubredditId : Subreddit[] = subredditsBySearchAndCategory.map((subreddit) => ({
         ...subreddit,
         reddit_id: redditId,
       }));
       
       const token : string = getToken();
 
-      await axios.post(
+      await axios.post<Subreddit[]>(
         `${API_URL}/reddits/subredditsearches`,
         subredditPostsWithSubredditId,
         {
