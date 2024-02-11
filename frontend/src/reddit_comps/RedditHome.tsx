@@ -6,6 +6,7 @@ import { Subreddit } from "../interfaces/Subreddit.interface";
 import SearchBar from "../static_comps/SearchBar";
 import CategoriesSelector from "./CategoriesSelector";
 import Loading from "../static_comps/Loading";
+import RedditSearchHistory from "./RedditsHistory";
 
 const RedditHome: React.FC = () => {
   const [subreddits, setSubreddits] = useState<Subreddit[]>([]);
@@ -123,6 +124,8 @@ const RedditHome: React.FC = () => {
           ))}
         </div>
       )}
+
+      <RedditSearchHistory/>
     </div>
   );
 };
