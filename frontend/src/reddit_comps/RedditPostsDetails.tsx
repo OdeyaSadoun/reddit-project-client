@@ -49,7 +49,7 @@ const RedditPostDetails: React.FC = () => {
   }, [reddit_id]);
 
   return (
-    <div>
+    <div className="container my-5">
       <h2>Posts Related to Search {reddit_id}</h2>
       <div>
         {posts.map((item, index) => (
