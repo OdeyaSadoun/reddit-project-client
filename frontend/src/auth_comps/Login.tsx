@@ -12,16 +12,19 @@ import {
   Button,
   Grid,
 } from "@mui/material";
+
 import { UserTokenResponse } from "src/types/UserTokenResponse.type";
 import { User } from "src/types/UserResponse.type";
 
 const Login :React.FC = () => {
+
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
   const nav = useNavigate();
   const API_URL: string = "http://localhost:8000";
 
-  const loginUser = async (email: string, password: string) => {
+const loginUser = async (email: string, password: string): Promise<UserTokenResponse> => {
     try {
       const userToken = await axios.post<UserTokenResponse>(
         `${API_URL}/auth/login`,
@@ -38,7 +41,7 @@ const Login :React.FC = () => {
     }
   };
 
-  const getUserInfo = async (accessToken: string) => {
+  const getUserInfo = async (accessToken: string): Promise<User> => {
     try {
       const currentUser = await axios.get<User>(
         `${API_URL}/users/get_user_info`,
@@ -55,19 +58,16 @@ const Login :React.FC = () => {
     }
   };
 
-  const saveTokensToLocalStorage = (
-    accessToken: string,
-    refreshToken: string
-  ) => {
+  const saveTokensToLocalStorage = (accessToken: string, refreshToken: string) : void => {
     localStorage.setItem("access_token", accessToken);
     localStorage.setItem("refresh_token", refreshToken);
   };
 
-  const saveUserToLocalStorage = (user: any) => {
+  const saveUserToLocalStorage = (user: any) : void => {
     localStorage.setItem("user", JSON.stringify(user));
   };
 
-  const handleLogin = async () => {
+  const handleLogin = async () : Promise<void> => {
     try {
       const userToken = await loginUser(email, password);
       saveTokensToLocalStorage(userToken.access_token, userToken.refresh_token);
