@@ -1,28 +1,31 @@
-// RedditHome.tsx
-import React, { useEffect, useState } from "react";
-import RedditItem from "./RedditItem";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+
 import { Subreddit } from "../interfaces/Subreddit.interface";
-import SearchBar from "../static_comps/SearchBar";
+
 import CategoriesSelector from "./CategoriesSelector";
 import Loading from "../static_comps/Loading";
+import RedditItem from "./RedditItem";
 import RedditSearchHistory from "./RedditsHistory";
+import SearchBar from "../static_comps/SearchBar";
+import { subredditSearch } from "src/interfaces/SubredditSearch.interface";
 
 const RedditHome: React.FC = () => {
-  const [subreddits, setSubreddits] = useState<Subreddit[]>([]);
+
   const [loading, setLoading] = useState<boolean>(false);
   const [searchData, setSearchData] = useState<string>("python");
   const [selectedCategory, setSelectedCategory] = useState<string>("new");
+  const [subreddits, setSubreddits] = useState<Subreddit[]>([]);
 
   const API_URL: string = "http://localhost:8000";
 
-  const getUserFromLocalStorage = () => {
+  const getUserFromLocalStorage = () : number=> {
     const user: any = JSON.parse(localStorage.getItem("user") || "");
     if (!user) {
       throw new Error("User ID is not available in local storage");
     }
 
-    const userId = Number(user.id); // Convert user ID to number
+    const userId = Number(user.id); 
     if (isNaN(userId)) {
       throw new Error("User ID is not a valid number");
     }
@@ -30,7 +33,7 @@ const RedditHome: React.FC = () => {
     return userId;
   };
 
-  const saveSubredditSearchToDB = async () => {
+  const saveSubredditSearchToDB = async () : Promise<subredditSearch | undefined> => {
     try {
       let userId = getUserFromLocalStorage();
 
@@ -46,12 +49,9 @@ const RedditHome: React.FC = () => {
         reddit: searchData,
         category: selectedCategory,
         created_date : Date.now()
-      };
+      };      
 
-      console.log({subredditSearchToSave});
-      
-
-      const reddirSearchResponse = await axios.post(
+      const reddirSearchResponse = await axios.post<subredditSearch>(
         `${API_URL}/reddits/redditsearches/`,
         subredditSearchToSave,
         {
@@ -67,18 +67,15 @@ const RedditHome: React.FC = () => {
     }
   };
 
-  const saveSubredditPostsSearchToDB = async (redditId: number) => {
+  const saveSubredditPostsSearchToDB = async (redditId: number, subredditsBySearchAndCategory:Subreddit[] ) : Promise<void> => {
     try {
-      console.log({subreddits});
       
-      let subredditPostsWithSubredditId = subreddits.map((subreddit) => ({
+      let subredditPostsWithSubredditId = subredditsBySearchAndCategory.map((subreddit) => ({
         ...subreddit,
         reddit_id: redditId,
       }));
-      console.log({subredditPostsWithSubredditId});
       
       const token = localStorage.getItem('access_token'); 
-      console.log({token});
       
       if (!token) {
         throw new Error('User token is not available');
@@ -99,7 +96,7 @@ const RedditHome: React.FC = () => {
     }
   };
 
-  const getSubreddits = async () => {
+  const getSubreddits = async () : Promise<Subreddit[]> => {
     try {
       let redditData: Subreddit[] = [];
       if (searchData !== "" && selectedCategory !== "") {
@@ -121,15 +118,17 @@ const RedditHome: React.FC = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        console.log("true - loading");
         const subredditsBySearchAndCategory = await getSubreddits();
         setSubreddits(subredditsBySearchAndCategory);
         setLoading(false);
-        console.log("false - loading");
         let response = await saveSubredditSearchToDB();
-        // console.log({subredditsBySearchAndCategory.id});
-
-        await saveSubredditPostsSearchToDB(response.id);
+        if(response){
+          console.log({response});
+          console.log(response.id);
+          
+          
+          await saveSubredditPostsSearchToDB(response.id, subredditsBySearchAndCategory);
+        }
       } catch (error) {
         console.error("Error fetching subreddits:", error);
       }
