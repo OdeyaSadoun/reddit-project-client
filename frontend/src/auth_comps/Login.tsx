@@ -13,7 +13,7 @@ import {
   Grid,
 } from "@mui/material";
 
-import { UserTokenResponse } from "src/types/UserTokenResponse.type";
+import { UserToken } from "src/types/UserToken.type";
 import { User } from "src/types/UserResponse.type";
 
 const Login :React.FC = () => {
@@ -24,9 +24,9 @@ const Login :React.FC = () => {
   const nav = useNavigate();
   const API_URL: string = "http://localhost:8000";
 
-const loginUser = async (email: string, password: string): Promise<UserTokenResponse> => {
+const loginUser = async (email: string, password: string): Promise<UserToken> => {
     try {
-      const userToken = await axios.post<UserTokenResponse>(
+      const userToken = await axios.post<UserToken>(
         `${API_URL}/auth/login`,
         { email, password },
         {

@@ -12,16 +12,19 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+
 import { newUser } from "src/types/NewUser.type";
 
 const Register: React.FC = () => {
-  const [name, setName] = useState<string>("");
+
   const [email, setEmail] = useState<string>("");
+  const [name, setName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const API_URL: string = "http://localhost:8000";
 
-  const handleRegister = async () => {
+  const handleRegister = async () : Promise<void>  => {
+    
     const newUser: newUser = {
       name,
       email,
@@ -30,7 +33,7 @@ const Register: React.FC = () => {
     };
 
     try {
-      const userInDb = await axios.post(
+      await axios.post(
         `${API_URL}/users/register`,
         newUser,
         {
