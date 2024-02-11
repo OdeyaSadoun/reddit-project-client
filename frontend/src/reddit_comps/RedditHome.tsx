@@ -9,6 +9,7 @@ import Loading from "../static_comps/Loading";
 import RedditItem from "./RedditItem";
 import RedditSearchHistory from "./RedditsHistory";
 import SearchBar from "../static_comps/SearchBar";
+
 import { getToken } from "src/static_comps/GetToken";
 
 const RedditHome: React.FC = () => {
@@ -20,7 +21,7 @@ const RedditHome: React.FC = () => {
 
   const API_URL: string = "http://localhost:8000";
 
-  const getUserFromLocalStorage = () : number=> {
+  const getUserIdFromLocalStorage = () : number=> {
     const user: any = JSON.parse(localStorage.getItem("user") || "");
     if (!user) {
       throw new Error("User ID is not available in local storage");
@@ -36,9 +37,9 @@ const RedditHome: React.FC = () => {
 
   const saveSubredditSearchToDB = async () : Promise<subredditSearch | undefined> => {
     try {
-      let userId = getUserFromLocalStorage();
+      let userId = getUserIdFromLocalStorage();
 
-      const token : string = getToken()
+      const token : string = getToken();
 
       let subredditSearchToSave = {
         user_id: userId,
@@ -57,7 +58,9 @@ const RedditHome: React.FC = () => {
           },
         }
       );
+
       return reddirSearchResponse.data;
+
     } catch (error) {
       console.error("Error saving search data:", error);
     }
@@ -71,12 +74,9 @@ const RedditHome: React.FC = () => {
         reddit_id: redditId,
       }));
       
-      const token = localStorage.getItem('access_token'); 
-      
-      if (!token) {
-        throw new Error('User token is not available');
-      }
-      const subredditPostsResponse = await axios.post(
+      const token : string = getToken();
+
+      await axios.post(
         `${API_URL}/reddits/subredditsearches`,
         subredditPostsWithSubredditId,
         {
@@ -86,7 +86,6 @@ const RedditHome: React.FC = () => {
           },
         }
       );
-      console.log("Subreddits sent to server:", subredditPostsResponse.data);
     } catch (error) {
       console.error("Error sending subreddits to server:", error);
     }
@@ -100,9 +99,10 @@ const RedditHome: React.FC = () => {
           `${API_URL}/reddits/get_posts_by_subreddit?subreddit=${searchData}&category=${selectedCategory}`
         );
         redditData = SubredditPostsResponse.data;
-        console.log({ redditData });
       }
+
       return redditData;
+
     } catch (error) {
       console.error("Error fetching subreddits:", error);
       setLoading(false);
@@ -111,7 +111,7 @@ const RedditHome: React.FC = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async () : Promise<void> => {
       try {
         setLoading(true);
         const subredditsBySearchAndCategory = await getSubreddits();
@@ -119,10 +119,6 @@ const RedditHome: React.FC = () => {
         setLoading(false);
         let response = await saveSubredditSearchToDB();
         if(response){
-          console.log({response});
-          console.log(response.id);
-          
-          
           await saveSubredditPostsSearchToDB(response.id, subredditsBySearchAndCategory);
         }
       } catch (error) {
