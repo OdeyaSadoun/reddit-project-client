@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import { Card, Button, Badge } from "react-bootstrap";
 import { RedditItemProps } from "src/interfaces/RedditItemProps.interface";
 

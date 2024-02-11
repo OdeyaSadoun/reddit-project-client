@@ -1,19 +1,15 @@
 // RedditPostDetails.tsx
-import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
-import Loading from "src/static_comps/Loading";
-import RedditItem from "./RedditItem";
-import { Subreddit } from "src/interfaces/Subreddit.interface";
+import React, { useState, useEffect } from "react";
 
-// interface RedditPost {
-//   id: number;
-//   title: string;
-//   content: string;
-// }
+import { useParams } from "react-router-dom";
+import { Subreddit } from "src/interfaces/Subreddit.interface";
+import RedditItem from "./RedditItem";
 
 const RedditPostDetails: React.FC = () => {
+
   const [posts, setPosts] = useState<Subreddit[]>([]);
+
   const { reddit_id } = useParams<{ reddit_id: string }>();
 
   const API_URL: string = "http://localhost:8000";
@@ -21,9 +17,7 @@ const RedditPostDetails: React.FC = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        console.log({ reddit_id });
         const token = localStorage.getItem("access_token");
-        console.log({ token });
 
         if (!token) {
           throw new Error("User token is not available");
@@ -38,7 +32,6 @@ const RedditPostDetails: React.FC = () => {
           }
         );
 
-        console.log("posts", response.data);
         setPosts(response.data);
       } catch (error) {
         console.error("Error fetching posts:", error);

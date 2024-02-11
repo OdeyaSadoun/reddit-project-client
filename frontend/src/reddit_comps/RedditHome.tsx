@@ -2,13 +2,13 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 import { Subreddit } from "../interfaces/Subreddit.interface";
+import { subredditSearch } from "src/interfaces/SubredditSearch.interface";
 
 import CategoriesSelector from "./CategoriesSelector";
 import Loading from "../static_comps/Loading";
 import RedditItem from "./RedditItem";
 import RedditSearchHistory from "./RedditsHistory";
 import SearchBar from "../static_comps/SearchBar";
-import { subredditSearch } from "src/interfaces/SubredditSearch.interface";
 
 const RedditHome: React.FC = () => {
 
