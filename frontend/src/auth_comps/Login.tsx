@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 import { LockOutlined } from "@mui/icons-material";
 import {
   Container,
@@ -13,20 +14,19 @@ import {
   Grid,
 } from "@mui/material";
 
-import { UserToken } from "src/types/UserToken.type";
+import { Token } from "src/types/Token.type";
 import { User } from "src/types/UserResponse.type";
 
-const Login :React.FC = () => {
-
+const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const nav = useNavigate();
   const API_URL: string = "http://localhost:8000";
 
-const loginUser = async (email: string, password: string): Promise<UserToken> => {
+  const loginUser = async (email: string, password: string): Promise<Token> => {
     try {
-      const userToken = await axios.post<UserToken>(
+      const userToken = await axios.post<Token>(
         `${API_URL}/auth/login`,
         { email, password },
         {
@@ -35,6 +35,7 @@ const loginUser = async (email: string, password: string): Promise<UserToken> =>
           },
         }
       );
+
       return userToken.data;
     } catch (err) {
       throw err;
@@ -52,22 +53,27 @@ const loginUser = async (email: string, password: string): Promise<UserToken> =>
           },
         }
       );
+
       return currentUser.data;
+
     } catch (err) {
       throw err;
     }
   };
 
-  const saveTokensToLocalStorage = (accessToken: string, refreshToken: string) : void => {
+  const saveTokensToLocalStorage = (
+    accessToken: string,
+    refreshToken: string
+  ): void => {
     localStorage.setItem("access_token", accessToken);
     localStorage.setItem("refresh_token", refreshToken);
   };
 
-  const saveUserToLocalStorage = (user: any) : void => {
+  const saveUserToLocalStorage = (user: any): void => {
     localStorage.setItem("user", JSON.stringify(user));
   };
 
-  const handleLogin = async () : Promise<void> => {
+  const handleLogin = async (): Promise<void> => {
     try {
       const userToken = await loginUser(email, password);
       saveTokensToLocalStorage(userToken.access_token, userToken.refresh_token);

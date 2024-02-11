@@ -9,6 +9,7 @@ import Loading from "../static_comps/Loading";
 import RedditItem from "./RedditItem";
 import RedditSearchHistory from "./RedditsHistory";
 import SearchBar from "../static_comps/SearchBar";
+import { getToken } from "src/static_comps/GetToken";
 
 const RedditHome: React.FC = () => {
 
@@ -37,12 +38,7 @@ const RedditHome: React.FC = () => {
     try {
       let userId = getUserFromLocalStorage();
 
-      const token = localStorage.getItem("access_token");
-      console.log({ token });
-
-      if (!token) {
-        throw new Error("User token is not available");
-      }
+      const token : string = getToken()
 
       let subredditSearchToSave = {
         user_id: userId,
