@@ -21,6 +21,7 @@ const myStore = configureStore({
   },
 });
 
+
 function App() {
 
   const [showInfo, setShowInfo] = useState(false);

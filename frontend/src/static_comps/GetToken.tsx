@@ -1,4 +1,5 @@
 export function getToken(): string {
+    
     const token = localStorage.getItem("access_token");
 
     if (!token) {

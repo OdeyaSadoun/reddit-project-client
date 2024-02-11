@@ -5,6 +5,7 @@ import { SearchBarProps } from "src/interfaces/SearchBarProps.interface";
 
 
 const SearchBar: React.FC<SearchBarProps> = ({ setSearchData }) => {
+  
   const [inputValue, setInputValue] = useState<string>("");
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {

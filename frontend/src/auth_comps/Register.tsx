@@ -16,6 +16,7 @@ import {
 
 import { newUser } from "src/types/NewUser.type";
 
+
 const Register: React.FC = () => {
 
   const [email, setEmail] = useState<string>("");

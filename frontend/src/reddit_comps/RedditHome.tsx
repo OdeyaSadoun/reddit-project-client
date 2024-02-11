@@ -12,6 +12,7 @@ import SearchBar from "../static_comps/SearchBar";
 
 import { getToken } from "src/static_comps/GetToken";
 
+
 const RedditHome: React.FC = () => {
 
   const [loading, setLoading] = useState<boolean>(false);

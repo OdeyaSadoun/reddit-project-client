@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 import { getToken } from "src/static_comps/GetToken";
 import { RedditSearch } from "src/interfaces/RedditSearch.interface";
 
+
 const RedditSearchHistory: React.FC = () => {
-    
+
   const [searches, setSearches] = useState<RedditSearch[]>([]);
 
   const API_URL: string = "http://localhost:8000";

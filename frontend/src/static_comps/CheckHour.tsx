@@ -1,4 +1,5 @@
 export function getGreeting(): string {
+  
   const now: Date = new Date();
   const hour: number = now.getHours();
 

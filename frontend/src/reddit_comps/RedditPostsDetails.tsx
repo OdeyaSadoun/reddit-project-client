@@ -9,6 +9,7 @@ import { getToken } from "src/static_comps/GetToken";
 
 
 const RedditPostDetails: React.FC = () => {
+  
   const [posts, setPosts] = useState<Subreddit[]>([]);
 
   const { reddit_id } = useParams<{ reddit_id: string }>();
