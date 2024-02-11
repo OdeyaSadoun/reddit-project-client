@@ -11,6 +11,7 @@ import RedditHome from "./reddit_comps/RedditHome";
 import Footer from "./static_comps/Footer";
 import Header from "./static_comps/Header";
 import HomeUser from "./user_comps/HomeUser";
+import RedditPostDetails from "./reddit_comps/RedditPostsDetails";
 
 const myStore = configureStore({
   reducer: {
@@ -40,6 +41,7 @@ function App() {
           <Route path="/home/:username" element={<HomeUser />} />
           {/* <Route path="/home/:username" element={<HomeUser />} /> */}
           <Route path="/reddit" element={<RedditHome />} />
+          <Route path="/history/:reddit_id" element={<RedditPostDetails />} />
           <Route path="/" element={<Home />} />
         </Routes>
         <Footer />

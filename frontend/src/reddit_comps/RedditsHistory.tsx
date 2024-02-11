@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 interface RedditSearch {
     id: number;
@@ -41,11 +42,13 @@ const RedditSearchHistory: React.FC = () => {
     return (
         <div>
             <h2>Search History</h2>
-            <ul>
+            <div>
                 {searches.map(search => (
-                    <li key={search.id}>{search.reddit} - {search.category}</li>
+                    <Link to={`/history/${search.id}`} key={search.id}>
+                        <li>{search.reddit} - {search.category}</li>
+                    </Link>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 };

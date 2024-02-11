@@ -28,21 +28,38 @@ const RedditHome: React.FC = () => {
     }
 
     return userId;
-  }
+  };
 
   const saveSubredditSearchToDB = async () => {
     try {
-    let userId = getUserFromLocalStorage();
+      let userId = getUserFromLocalStorage();
+
+      const token = localStorage.getItem("access_token");
+      console.log({ token });
+
+      if (!token) {
+        throw new Error("User token is not available");
+      }
 
       let subredditSearchToSave = {
         user_id: userId,
         reddit: searchData,
         category: selectedCategory,
+        created_date : Date.now()
       };
+
+      console.log({subredditSearchToSave});
+      
 
       const reddirSearchResponse = await axios.post(
         `${API_URL}/reddits/redditsearches/`,
-        subredditSearchToSave
+        subredditSearchToSave,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
       );
       return reddirSearchResponse.data;
     } catch (error) {
@@ -50,10 +67,32 @@ const RedditHome: React.FC = () => {
     }
   };
 
-  const saveSubredditPostsSearchToDB = async (redditId:number) => {
-    try {        
-      let subredditPostsWithSubredditId = subreddits.map(subreddit => ({ ...subreddit, reddit_id: redditId }));      
-      const subredditPostsResponse = await axios.post(`${API_URL}/reddits/subredditsearches`, subredditPostsWithSubredditId);
+  const saveSubredditPostsSearchToDB = async (redditId: number) => {
+    try {
+      console.log({subreddits});
+      
+      let subredditPostsWithSubredditId = subreddits.map((subreddit) => ({
+        ...subreddit,
+        reddit_id: redditId,
+      }));
+      console.log({subredditPostsWithSubredditId});
+      
+      const token = localStorage.getItem('access_token'); 
+      console.log({token});
+      
+      if (!token) {
+        throw new Error('User token is not available');
+      }
+      const subredditPostsResponse = await axios.post(
+        `${API_URL}/reddits/subredditsearches`,
+        subredditPostsWithSubredditId,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
       console.log("Subreddits sent to server:", subredditPostsResponse.data);
     } catch (error) {
       console.error("Error sending subreddits to server:", error);
@@ -79,7 +118,6 @@ const RedditHome: React.FC = () => {
   };
 
   useEffect(() => {
-
     const fetchData = async () => {
       try {
         setLoading(true);
@@ -90,7 +128,7 @@ const RedditHome: React.FC = () => {
         console.log("false - loading");
         let response = await saveSubredditSearchToDB();
         // console.log({subredditsBySearchAndCategory.id});
-        
+
         await saveSubredditPostsSearchToDB(response.id);
       } catch (error) {
         console.error("Error fetching subreddits:", error);
@@ -98,7 +136,6 @@ const RedditHome: React.FC = () => {
     };
 
     fetchData();
-
   }, [searchData, selectedCategory]);
 
   return (
@@ -125,7 +162,7 @@ const RedditHome: React.FC = () => {
         </div>
       )}
 
-      <RedditSearchHistory/>
+      <RedditSearchHistory />
     </div>
   );
 };
