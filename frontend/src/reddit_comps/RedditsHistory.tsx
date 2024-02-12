@@ -17,7 +17,7 @@ const RedditSearchHistory: React.FC = () => {
       const token: string = getToken();
 
       const historySearch = await axios.get<RedditSearch[]>(
-        `${API_URL}/reddits/recent`,
+        `${API_URL}/reddits/history`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
