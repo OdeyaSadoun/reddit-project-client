@@ -1,5 +1,5 @@
 import React from 'react'
-import RedditHome from '../reddit_comps/RedditHome'
+import RedditHome from '../reddit/RedditHome'
 
 const HomeUser = () => {
   return (

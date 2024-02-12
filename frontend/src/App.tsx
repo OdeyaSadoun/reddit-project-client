@@ -3,15 +3,15 @@ import { Routes, Route } from "react-router-dom";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 
-import Footer from "./static_comps/Footer";
-import Header from "./static_comps/Header";
-import Home from "./static_comps/Home";
-import HomeUser from "./user_comps/HomeUser";
-import Login from "./auth_comps/Login";
-import RedditHome from "./reddit_comps/RedditHome";
-import RedditPostDetails from "./reddit_comps/RedditPostsDetails";
-import Register from "./auth_comps/Register";
-import RedditSearchHistory from "./reddit_comps/RedditsHistory";
+import Footer from "./components/static/Footer";
+import Header from "./components/static/Header";
+import Home from "./components/static/Home";
+import HomeUser from "./components/user/HomeUser";
+import Login from "./components/auth/Login";
+import RedditHome from "./components/reddit/RedditHome";
+import RedditPostDetails from "./components/reddit/RedditPostsDetails";
+import Register from "./components/auth/Register";
+import RedditSearchHistory from "./components/reddit/RedditsHistory";
 
 function App() {
   const [showInfo, setShowInfo] = useState(false);

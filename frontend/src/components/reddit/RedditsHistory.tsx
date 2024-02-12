@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 
 import { Link } from "react-router-dom";
-import { getToken } from "src/static_comps/GetToken";
+import { getToken } from "src/components/static/GetToken";
 import { RedditSearch } from "src/interfaces/RedditSearch.interface";
 
 
