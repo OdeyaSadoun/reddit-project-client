@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 import { Subreddit } from "../../interfaces/Subreddit.interface";
-import { subredditSearch } from "src/interfaces/SubredditSearch.interface";
+import { subredditSearch } from "../../interfaces/SubredditSearch.interface";
 
 import CategoriesSelector from "./CategoriesSelector";
 import Loading from "../static/Loading";
@@ -10,7 +10,7 @@ import RedditItem from "./RedditItem";
 import RedditSearchHistory from "./RedditsHistory";
 import SearchBar from "../static/SearchBar";
 
-import { getToken } from "src/components/static/GetToken";
+import { getToken } from "../static/GetToken";
 
 
 const RedditHome: React.FC = () => {

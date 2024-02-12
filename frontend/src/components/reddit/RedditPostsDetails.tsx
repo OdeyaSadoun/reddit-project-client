@@ -4,8 +4,8 @@ import React, { useState, useEffect } from "react";
 import RedditItem from "./RedditItem";
 
 import { useParams } from "react-router-dom";
-import { Subreddit } from "src/interfaces/Subreddit.interface";
-import { getToken } from "src/components/static/GetToken";
+import { Subreddit } from "../../interfaces/Subreddit.interface";
+import { getToken } from "../static/GetToken";
 
 
 const RedditPostDetails: React.FC = () => {

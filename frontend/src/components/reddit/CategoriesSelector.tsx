@@ -1,7 +1,7 @@
 import React from "react";
 
 import { ButtonGroup, ToggleButton } from "react-bootstrap";
-import { CategoriesSelectorProps } from "src/interfaces/CategoriesSelectorProps.interface";
+import { CategoriesSelectorProps } from "../../interfaces/CategoriesSelectorProps.interface";
 
 
 const CategoriesSelector: React.FC<CategoriesSelectorProps> = ({ selectedCategory, setSelectedCategory }) => {

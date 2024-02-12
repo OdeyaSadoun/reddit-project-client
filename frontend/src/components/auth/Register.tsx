@@ -14,7 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { newUser } from "src/types/NewUser.type";
+import { newUser } from "../../types/NewUser.type";
 
 
 const Register: React.FC = () => {

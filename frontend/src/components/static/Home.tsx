@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
 
-const Home = () => {
+const Home: React.FC = () => {
   return (
-    <div>Home</div>
-  )
-}
+    <div className="container text-center p-5">
+      <h2 className="display-1">Wellcome to reddit:)</h2>
+      <p className="lead">To continue please login or sign up to the system</p>
+    </div>
+  );
+};
 
-export default Home
+export default Home;

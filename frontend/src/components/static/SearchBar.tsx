@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent } from "react";
 
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { SearchBarProps } from "src/interfaces/SearchBarProps.interface";
+import { SearchBarProps } from "../../interfaces/SearchBarProps.interface";
 
 
 const SearchBar: React.FC<SearchBarProps> = ({ setSearchData }) => {

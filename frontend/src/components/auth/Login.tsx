@@ -14,8 +14,8 @@ import {
   Grid,
 } from "@mui/material";
 
-import { Token } from "src/types/Token.type";
-import { User } from "src/types/UserResponse.type";
+import { Token } from "../../types/Token.type";
+import { User } from "../../types/UserResponse.type";
 
 
 const Login: React.FC = () => {
