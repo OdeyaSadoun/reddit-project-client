@@ -44,7 +44,7 @@ const RedditSearchHistory: React.FC = () => {
 
   return (
     <div className="history-container container mx-auto">
-      <h2 className="text-center lead">Search History</h2>
+      <h2 className="text-center display-6">Search History</h2>
       <div>
         {searches.map((search) => (
           <Link to={`/user/history/${search.id}`} key={search.id} className="link-decoration-none">
