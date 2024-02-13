@@ -1,5 +1,6 @@
 import axios from "axios";
 import { User } from "../../types/UserResponse.type";
+
 const API_URL: string = "http://localhost:8000";
 
 export const getUserInfo = async (accessToken: string): Promise<User> => {

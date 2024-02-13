@@ -1,12 +1,15 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+
 import { Link } from "react-router-dom";
+import { format } from "date-fns";
+
 import { getToken } from "../static/GetToken";
 import { RedditSearch } from "../../interfaces/RedditSearch.interface";
-import { format } from "date-fns";
 
 const RedditSearchHistory: React.FC = () => {
   const [searches, setSearches] = useState<RedditSearch[]>([]);
+  
   const API_URL: string = "http://localhost:8000";
 
   const getHistorySearch = async (): Promise<RedditSearch[] | undefined> => {

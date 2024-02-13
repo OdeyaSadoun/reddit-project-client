@@ -1,7 +1,8 @@
 import React from 'react'
-import { Route } from 'react-router-dom';
+
 import HeaderUser from './HeaderUser';
 import Header from './Header';
+import { Route } from 'react-router-dom';
 
 export const HeadersRoutes = () => {
     return (

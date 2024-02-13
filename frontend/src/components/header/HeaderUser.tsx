@@ -1,20 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
+
 import { Link, useNavigate } from "react-router-dom";
 import { getGreeting } from "../static/CheckHour";
 
 const HeaderUser: React.FC = () => {
   const nav = useNavigate();
 
-  const getUserFromLocalStorage = () =>{
+  const getUserFromLocalStorage = (): string => {
     const userString = localStorage.getItem("user");
     const user = userString ? JSON.parse(userString) : null;
-    console.log({user});
-    
-    return user.name;
-  }
-  
+    console.log({ user });
 
-  const logOut = () => {
+    return user.name;
+  };
+
+  const logOut = (): void => {
     localStorage.removeItem("user");
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
@@ -28,23 +28,23 @@ const HeaderUser: React.FC = () => {
           <div>
             <nav className="row align-items-center justify-content-between">
               <div className="d-flex col-auto">
-
-            
-              <div className="col-auto">
-                <Link to={`/user/${getUserFromLocalStorage()}`}  className="py-1">
-                  <img src="/logo.png" className="logo py-2"></img>
-                </Link>
-
-              </div>
-              <div className="lead col-auto pt-4 ps-2">
+                <div className="col-auto">
+                  <Link
+                    to={`/user/${getUserFromLocalStorage()}`}
+                    className="py-1"
+                  >
+                    <img src="/logo.png" className="logo py-2"></img>
+                  </Link>
+                </div>
+                <div className="lead col-auto pt-4 ps-2">
                   {`${getGreeting()} ${getUserFromLocalStorage()}`}
                 </div>
-                </div>
+              </div>
               <div className="col-auto d-flex">
                 <div className="col-auto py-3 px-2 ">
                   <Link
-                      to="/user/history"
-                      className="link-hover-color px-2 link-decoration-none"
+                    to="/user/history"
+                    className="link-hover-color px-2 link-decoration-none"
                   >
                     search history
                   </Link>

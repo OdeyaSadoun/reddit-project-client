@@ -1,7 +1,7 @@
 import React from 'react'
 import RedditHome from '../reddit/RedditHome'
 
-const HomeUser = () => {
+const HomeUser: React.FC = () => {
   return (
       <RedditHome/>
   )
