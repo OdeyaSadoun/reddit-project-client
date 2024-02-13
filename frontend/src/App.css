@@ -41,6 +41,10 @@
     cursor: pointer;
   }
 
+  a{
+    cursor: pointer;
+  }
+
   /*links header*/
   .link-decoration-none {
     text-decoration: none !important; 

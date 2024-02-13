@@ -24,19 +24,18 @@ const HeaderUser: React.FC = () => {
               </div>
               <div className="col-auto d-flex">
                 <div className="col-auto py-3 px-2 ">
+                  <Link
+                      to="/user/history"
+                      className="link-hover-color px-2 text-secondary link-offset-2 link-offset-3-hover link link-decoration-none link-hover-underline"
+                  >
+                    search history
+                  </Link>
                   <a
                     className="link-hover-color px-2 text-secondary link-offset-2 link-offset-3-hover link link-decoration-none link-hover-underline"
                     onClick={logOut}
                   >
-                    search history
-                  </a>
-                  <Link
-                    to="/logout"
-                    className="link-hover-color px-2 text-secondary link-offset-2 link-offset-3-hover link link-decoration-none link-hover-underline"
-                    onClick={logOut}
-                  >
                     logout
-                  </Link>
+                  </a>
                 </div>
                 <div className="user col-auto p-2">
                   <i className="fa fa-user home-btn" aria-hidden="true"></i>
