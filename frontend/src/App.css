@@ -24,7 +24,7 @@
   }
 
   .footer {
-    background-color: #c7e6fc5b;
+    background-color: #f5b3d72c;
     justify-content: center;
     align-items: center;
     font-weight: bolder;
@@ -35,3 +35,4 @@
     position: relative;
     min-height: 100vh;
   }
+
