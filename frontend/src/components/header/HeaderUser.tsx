@@ -4,6 +4,15 @@ import { Link, useNavigate } from "react-router-dom";
 const HeaderUser: React.FC = () => {
   const nav = useNavigate();
 
+  const getUserFromLocalStorage = () =>{
+    const userString = localStorage.getItem("user");
+    const user = userString ? JSON.parse(userString) : null;
+    console.log({user});
+    
+    return user.name;
+  }
+  
+
   const logOut = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("access_token");
@@ -18,7 +27,7 @@ const HeaderUser: React.FC = () => {
           <div>
             <nav className="row align-items-center justify-content-between">
               <div className="col-auto">
-                <Link to="/" className="py-1">
+                <Link to={`/user/${getUserFromLocalStorage()}`}  className="py-1">
                   <img src="/logo.png" className="logo py-2"></img>
                 </Link>
               </div>

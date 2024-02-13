@@ -29,6 +29,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/user/:username" element={<HomeUser />} />
+        <Route path="/user" element={<HomeUser />} />
         <Route path="/user/reddit" element={<RedditHome />} />
         <Route path="/user/history/:reddit_id" element={<RedditPostDetails />} />
         <Route path="/user/history" element={<RedditSearchHistory />} />
