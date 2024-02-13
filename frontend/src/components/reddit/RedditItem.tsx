@@ -24,17 +24,25 @@ const RedditItem: React.FC<RedditItemProps> = ({ item }) => {
                 : item.selftext}
             </Card.Text>
           )}
+          <div>
+
+          <div>
           {item.selftext.length > 150 && (
             <div className="d-flex justify-content-between">
               <Button variant="primary" size="sm" onClick={toggleExpansion}>
                 {isExpanded ? "close" : "read more"}
               </Button>
-              <PostScores
+            </div>
+          )}
+          </div>
+          <div className="pt-2">
+
+          <PostScores
                 upvotes={item.ups}
                 downvotes={item.downs}
               />
-            </div>
-          )}
+          </div>
+          </div>
         </div>
         <div>
           {item.sentiment && (

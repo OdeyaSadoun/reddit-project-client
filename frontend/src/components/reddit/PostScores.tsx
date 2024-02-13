@@ -7,8 +7,8 @@ const PostScores: React.FC<PostScoresProps> = ({ upvotes, downvotes }) => {
     return (
       <div>
         <div className='d-flex'>
-          <FontAwesomeIcon icon={faThumbsUp} className='px-2 color-liteblue'/> {upvotes} &nbsp;
-          <FontAwesomeIcon icon={faThumbsDown} className='px-2 color-liteblue'/> {downvotes} &nbsp;
+          <FontAwesomeIcon icon={faThumbsUp} className='px-1 color-liteblue'/> {upvotes} &nbsp;
+          <FontAwesomeIcon icon={faThumbsDown} className='px-1 color-liteblue'/> {downvotes} &nbsp;
         </div>
       </div>
     );
