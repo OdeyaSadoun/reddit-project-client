@@ -19,7 +19,7 @@ const HeaderUser: React.FC = () => {
             <nav className="row align-items-center justify-content-between">
               <div className="col-auto">
                 <Link to="/" className="py-1">
-                  <img src="logo.png" className="logo py-2"></img>
+                  <img src="/logo.png" className="logo py-2"></img>
                 </Link>
               </div>
               <div className="col-auto d-flex">

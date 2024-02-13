@@ -2,14 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Header: React.FC = () => {
-  const nav = useNavigate();
-
-  const logOut = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token");
-    nav("/");
-  };
 
   return (
     <div className="main-header">
