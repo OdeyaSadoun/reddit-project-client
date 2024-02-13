@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-
 import { Card, Button, Badge } from "react-bootstrap";
 import { RedditItemProps } from "../../interfaces/RedditItemProps.interface";
-
+import PostScores from "./PostScores";
 
 const RedditItem: React.FC<RedditItemProps> = ({ item }) => {
-
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   const toggleExpansion = () => {
@@ -27,9 +25,15 @@ const RedditItem: React.FC<RedditItemProps> = ({ item }) => {
             </Card.Text>
           )}
           {item.selftext.length > 150 && (
-            <Button variant="primary" size="sm" onClick={toggleExpansion}>
-              {isExpanded ? "close" : "read more"}
-            </Button>
+            <div className="d-flex justify-content-between">
+              <Button variant="primary" size="sm" onClick={toggleExpansion}>
+                {isExpanded ? "close" : "read more"}
+              </Button>
+              <PostScores
+                upvotes={item.ups}
+                downvotes={item.downs}
+              />
+            </div>
           )}
         </div>
         <div>

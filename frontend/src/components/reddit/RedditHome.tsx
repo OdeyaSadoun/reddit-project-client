@@ -12,23 +12,21 @@ import SearchBar from "../static/SearchBar";
 
 import { getToken } from "../static/GetToken";
 
-
 const RedditHome: React.FC = () => {
-
   const [loading, setLoading] = useState<boolean>(false);
-  const [searchData, setSearchData] = useState<string>("python");
-  const [selectedCategory, setSelectedCategory] = useState<string>("new");
+  const [searchData, setSearchData] = useState<string>("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [subreddits, setSubreddits] = useState<Subreddit[]>([]);
 
   const API_URL: string = "http://localhost:8000";
 
-  const getUserIdFromLocalStorage = () : number=> {
+  const getUserIdFromLocalStorage = (): number => {
     const user: any = JSON.parse(localStorage.getItem("user") || "");
     if (!user) {
       throw new Error("User ID is not available in local storage");
     }
 
-    const userId = Number(user.id); 
+    const userId = Number(user.id);
     if (isNaN(userId)) {
       throw new Error("User ID is not a valid number");
     }
@@ -36,18 +34,20 @@ const RedditHome: React.FC = () => {
     return userId;
   };
 
-  const saveSubredditSearchToDB = async () : Promise<subredditSearch | undefined> => {
+  const saveSubredditSearchToDB = async (): Promise<
+    subredditSearch | undefined
+  > => {
     try {
       let userId = getUserIdFromLocalStorage();
 
-      const token : string = getToken();
+      const token: string = getToken();
 
       let subredditSearchToSave = {
         user_id: userId,
         reddit: searchData,
         category: selectedCategory,
-        created_date : Date.now()
-      };      
+        created_date: Date.now(),
+      };
 
       const reddirSearchResponse = await axios.post<subredditSearch>(
         `${API_URL}/reddits/redditsearches/`,
@@ -61,21 +61,23 @@ const RedditHome: React.FC = () => {
       );
 
       return reddirSearchResponse.data;
-
     } catch (error) {
       console.error("Error saving search data:", error);
     }
   };
 
-  const saveSubredditPostsSearchToDB = async (redditId: number, subredditsBySearchAndCategory:Subreddit[] ) : Promise<void> => {
+  const saveSubredditPostsSearchToDB = async (
+    redditId: number,
+    subredditsBySearchAndCategory: Subreddit[]
+  ): Promise<void> => {
     try {
-      
-      let subredditPostsWithSubredditId : Subreddit[] = subredditsBySearchAndCategory.map((subreddit) => ({
-        ...subreddit,
-        reddit_id: redditId,
-      }));
-      
-      const token : string = getToken();
+      let subredditPostsWithSubredditId: Subreddit[] =
+        subredditsBySearchAndCategory.map((subreddit) => ({
+          ...subreddit,
+          reddit_id: redditId,
+        }));
+
+      const token: string = getToken();
 
       await axios.post<Subreddit[]>(
         `${API_URL}/reddits/subredditsearches`,
@@ -92,7 +94,7 @@ const RedditHome: React.FC = () => {
     }
   };
 
-  const getSubreddits = async () : Promise<Subreddit[]> => {
+  const getSubreddits = async (): Promise<Subreddit[]> => {
     try {
       let redditData: Subreddit[] = [];
       if (searchData !== "" && selectedCategory !== "") {
@@ -103,7 +105,6 @@ const RedditHome: React.FC = () => {
       }
 
       return redditData;
-
     } catch (error) {
       console.error("Error fetching subreddits:", error);
       setLoading(false);
@@ -112,16 +113,23 @@ const RedditHome: React.FC = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () : Promise<void> => {
+    const fetchData = async (): Promise<void> => {
       try {
         setLoading(true);
         const subredditsBySearchAndCategory = await getSubreddits();
-        setSubreddits(subredditsBySearchAndCategory);
-        setLoading(false);
-        let response = await saveSubredditSearchToDB();
-        if(response){
-          await saveSubredditPostsSearchToDB(response.id, subredditsBySearchAndCategory);
+        console.log(subredditsBySearchAndCategory);
+        
+        if (subredditsBySearchAndCategory.length > 0) {
+          setSubreddits(subredditsBySearchAndCategory);
+          let response = await saveSubredditSearchToDB();
+          if (response) {
+            await saveSubredditPostsSearchToDB(
+              response.id,
+              subredditsBySearchAndCategory
+            );
+          }
         }
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching subreddits:", error);
       }
