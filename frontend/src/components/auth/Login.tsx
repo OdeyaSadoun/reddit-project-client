@@ -81,7 +81,7 @@ const Login: React.FC = () => {
       saveTokensToLocalStorage(userToken.access_token, userToken.refresh_token);
       const currentUser = await getUserInfo(userToken.access_token);
       saveUserToLocalStorage(currentUser);
-      nav(`/home/${currentUser.name}`);
+      nav(`/user/${currentUser.name}`);
     } catch (err) {
       console.log("err:", err);
     }

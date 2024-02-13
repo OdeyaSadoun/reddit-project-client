@@ -51,7 +51,7 @@ const RedditSearchHistory: React.FC = () => {
       <h2>Search History</h2>
       <div>
         {searches.map((search) => (
-          <Link to={`/history/${search.id}`} key={search.id}>
+          <Link to={`/user/history/${search.id}`} key={search.id}>
             <li>
               {search.reddit} - {search.category}
             </li>
