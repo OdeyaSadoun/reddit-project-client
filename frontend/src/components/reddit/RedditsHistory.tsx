@@ -43,17 +43,17 @@ const RedditSearchHistory: React.FC = () => {
   }, []);
 
   return (
-    <div className="history-container">
-      <h2>Search History</h2>
+    <div className="history-container container mx-auto">
+      <h2 className="text-center lead">Search History</h2>
       <div>
         {searches.map((search) => (
-          <Link to={`/user/history/${search.id}`} key={search.id}>
-            <div className="search-box">
-              <div className="search-info">
-                <p className="search-text">{search.reddit}</p>
-                <p className="category-text">{search.category}</p>
+          <Link to={`/user/history/${search.id}`} key={search.id} className="link-decoration-none">
+            <div className="search-box ps-3 pt-4">
+              <div className="search-info d-flex">
+                <p className="search-text px-2">{search.reddit}</p>
+                <p className="category-text px-2">{search.category}</p>
               </div>
-              <div className="date-info">
+              <div className="date-info pe-3">
                 <p className="date-text">
                   {format(new Date(search.created_date), "dd/MM/yyyy")}
                 </p>
