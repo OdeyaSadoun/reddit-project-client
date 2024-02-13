@@ -18,13 +18,13 @@ const Header: React.FC = () => {
                 <div className="col-auto py-3 px-2 ">
                   <Link
                     to="/login"
-                    className="link-hover-color px-2 text-secondary link-offset-2 link-offset-3-hover link link-decoration-none link-hover-underline"
+                    className="link-hover-color px-2 link-decoration-none"
                   >
                     login
                   </Link>
                   <Link
                     to="/register"
-                    className="link-hover-color px-2 text-secondary link-offset-2 link-offset-3-hover link link-decoration-none link-hover-underline"
+                    className="link-hover-color px-2 link-decoration-none "
                   >
                     sign up
                   </Link>
