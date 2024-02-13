@@ -36,3 +36,35 @@
     min-height: 100vh;
   }
 
+  .user {
+    font-size: 1.5em;
+    cursor: pointer;
+  }
+
+  /*links header*/
+  .link-decoration-none {
+    text-decoration: none !important; 
+  }
+  .link-hover-color:hover {
+    color: #C7E6FC;
+  }
+  .link-hover-underline:hover {
+    position: relative; 
+  }
+  
+  .link-hover-underline::before, .link-hover-underline::after {
+    content: ''; 
+    position: absolute; 
+    left: 0;
+    right: 0;
+    height: 1px; 
+    background: #C7E6FC; 
+  }
+  
+  .link-hover-underline::before {
+    top: -2px;
+  }
+  
+  .link-hover-underline::after {
+    bottom: -2px; 
+  }
