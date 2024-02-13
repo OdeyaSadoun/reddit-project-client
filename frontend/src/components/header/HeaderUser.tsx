@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { getGreeting } from "../static/CheckHour";
 
 const HeaderUser: React.FC = () => {
   const nav = useNavigate();
@@ -26,11 +27,19 @@ const HeaderUser: React.FC = () => {
         <div className="container">
           <div>
             <nav className="row align-items-center justify-content-between">
+              <div className="d-flex col-auto">
+
+            
               <div className="col-auto">
                 <Link to={`/user/${getUserFromLocalStorage()}`}  className="py-1">
                   <img src="/logo.png" className="logo py-2"></img>
                 </Link>
+
               </div>
+              <div className="lead col-auto pt-4 ps-2">
+                  {`${getGreeting()} ${getUserFromLocalStorage()}`}
+                </div>
+                </div>
               <div className="col-auto d-flex">
                 <div className="col-auto py-3 px-2 ">
                   <Link
