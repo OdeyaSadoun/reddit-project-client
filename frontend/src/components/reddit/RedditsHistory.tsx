@@ -43,7 +43,7 @@ const RedditSearchHistory: React.FC = () => {
   }, []);
 
   return (
-    <div className="history-container container mx-auto">
+    <div className="history-container container mx-auto margin-buttom-container">
       <h2 className="text-center display-6 py-3">Search History</h2>
       <div>
         {searches.map((search) => (

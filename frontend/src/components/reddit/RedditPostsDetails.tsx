@@ -56,7 +56,7 @@ const RedditPostDetails: React.FC = () => {
   return (
     <div className="container my-5">
       <h2 className="text-center display-6 py-3">Posts Related </h2>
-      <div>
+      <div className="margin-buttom-container">
         {posts.map((item, index) => (
           <RedditItem key={index} item={item} />
         ))}

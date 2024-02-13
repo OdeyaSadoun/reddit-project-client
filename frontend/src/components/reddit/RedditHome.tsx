@@ -139,7 +139,7 @@ const RedditHome: React.FC = () => {
   }, [searchData, selectedCategory]);
 
   return (
-    <div className="container my-5">
+    <div className="container my-5 ">
       <div className="d-flex justify-content-between align-items-center">
         <div className="col-md-6">
           <SearchBar setSearchData={setSearchData} />
@@ -155,7 +155,7 @@ const RedditHome: React.FC = () => {
       {loading ? (
         <Loading />
       ) : (
-        <div>
+        <div className="margin-buttom-container">
           {subreddits.map((item, index) => (
             <RedditItem key={index} item={item} />
           ))}
