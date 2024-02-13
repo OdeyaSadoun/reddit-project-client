@@ -55,7 +55,7 @@ const Register: React.FC = () => {
         <CssBaseline />
         <Box
           sx={{
-            mt: 15,
+            mt: 4,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
