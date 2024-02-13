@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { LockOutlined } from "@mui/icons-material";
 import {
@@ -15,6 +15,8 @@ import {
 } from "@mui/material";
 
 import { newUser } from "../../types/NewUser.type";
+import { getUserInfo, saveTokensToLocalStorage, saveUserToLocalStorage } from "./TokenFuncs";
+import { Token } from "../../types/Token.type";
 
 
 const Register: React.FC = () => {
@@ -23,8 +25,25 @@ const Register: React.FC = () => {
   const [name, setName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
+  const nav = useNavigate();
   const API_URL: string = "http://localhost:8000";
 
+  const addUser = async (user: newUser): Promise<Token> => {
+    try {
+      const userTokenAfterRegister = await axios.post<Token>(
+        `${API_URL}/users/register`,
+        user,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+      return userTokenAfterRegister.data;
+    } catch (err) {
+      throw err;
+    }
+  };
   const handleRegister = async () : Promise<void>  => {
     
     const newUser: newUser = {
@@ -35,15 +54,11 @@ const Register: React.FC = () => {
     };
 
     try {
-      await axios.post(
-        `${API_URL}/users/register`,
-        newUser,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const userTokenAfterRegister = await addUser(newUser);
+      saveTokensToLocalStorage(userTokenAfterRegister.access_token, userTokenAfterRegister.refresh_token);
+      const currentUser = await getUserInfo(userTokenAfterRegister.access_token);
+      saveUserToLocalStorage(currentUser);
+      nav(`/user/${currentUser.name}`);
     } catch (err) {
       console.log("err:", err);
     }
