@@ -24,7 +24,7 @@ const Footer: React.FC = () => {
                 aria-hidden="true"
               ></i>
             </a>
-            <a href="https://www.youtube.com/@out2in-siders" target="_blank">
+            <a href="#">
               <i
                 className="px-3 my-2 fa fa-2x fa-youtube-play text-black"
                 aria-hidden="true"
