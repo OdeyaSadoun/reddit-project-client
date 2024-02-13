@@ -8,25 +8,25 @@ const Footer: React.FC = () => {
           <div>
             <a href="#">
               <i
-                className="px-3 my-3 fa fa-2x fa-facebook-square text-black"
+                className="px-3 my-2 fa fa-2x fa-facebook-square text-black"
                 aria-hidden="true"
               ></i>
             </a>
             <a href="#">
               <i
-                className="px-3 my-3 fa fa-2x fa-twitter-square text-black"
+                className="px-3 my-2 fa fa-2x fa-twitter-square text-black"
                 aria-hidden="true"
               ></i>
             </a>
             <a href="#">
               <i
-                className="px-3 my-3 fa fa-2x fa-instagram text-black"
+                className="px-3 my-2 fa fa-2x fa-instagram text-black"
                 aria-hidden="true"
               ></i>
             </a>
             <a href="https://www.youtube.com/@out2in-siders" target="_blank">
               <i
-                className="px-3 my-3 fa fa-2x fa-youtube-play text-black"
+                className="px-3 my-2 fa fa-2x fa-youtube-play text-black"
                 aria-hidden="true"
               ></i>
             </a>

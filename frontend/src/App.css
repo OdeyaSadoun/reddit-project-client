@@ -5,17 +5,10 @@
     border-bottom: 2px solid #ccc; 
   }
   
-  /* .logo-container {
-    margin-left: 10px;
-  } */
   
   .logo {
     width: 150px;
   }
-/* 
-  .footer {
-    align-self: flex-end;
-  } */
 
   footer {
     position: fixed;
@@ -27,7 +20,6 @@
     background-color: #C7E6FC;
     justify-content: center;
     align-items: center;
-    padding-bottom: 12px;
   }
 
   #page-container {
