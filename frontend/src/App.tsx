@@ -13,6 +13,9 @@ import RedditPostDetails from "./components/reddit/RedditPostsDetails";
 import Register from "./components/auth/Register";
 import RedditSearchHistory from "./components/reddit/RedditsHistory";
 
+import './App.css';
+
+
 function App() {
   const [showInfo, setShowInfo] = useState(false);
 
@@ -21,7 +24,7 @@ function App() {
   };
 
   return (
-    <>
+    <div id='page-container'>
       <Header />
       <Routes>
         <Route path="/login" element={<Login />} />
@@ -33,7 +36,7 @@ function App() {
         <Route path="/" element={<Home />} />
       </Routes>
       <Footer />
-    </>
+    </div>
   );
 }
 

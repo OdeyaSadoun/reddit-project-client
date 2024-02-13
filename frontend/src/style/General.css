@@ -5,31 +5,33 @@
     border-bottom: 2px solid #ccc; 
   }
   
-  .logo-container {
+  /* .logo-container {
     margin-left: 10px;
-  }
+  } */
   
   .logo {
     width: 150px;
   }
-
-  html, body {
-    height: 100%;
-    margin: 0;
-  }
-  
-  .container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; 
-  }
-  
-  .main-content {
-    flex-grow: 1; 
-  }
-  
+/* 
   .footer {
     align-self: flex-end;
+  } */
+
+  footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
   }
 
-  
+  .footer {
+    background-color: #c7e6fc5b;
+    justify-content: center;
+    align-items: center;
+    font-weight: bolder;
+    padding-bottom: 12px;
+  }
+
+  #page-container {
+    position: relative;
+    min-height: 100vh;
+  }

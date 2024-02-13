@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer: React.FC = () => {
   return (
-    <div className="footer">
+    <footer className="footer">
       <div className="container">
         <div className="row justify-content-around text-center">
           <div>
@@ -34,7 +34,7 @@ const Footer: React.FC = () => {
           <p className="mb-1">&copy; Odeya Sadoun | reddit project | 2024</p>
         </div>
       </div>
-    </div>
+    </footer>
   );
 };
 
