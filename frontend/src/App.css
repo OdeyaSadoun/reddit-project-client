@@ -17,7 +17,7 @@
   }
 
   .footer {
-    background-color: #C7E6FC;
+    background-color: #E5D6F2;
     justify-content: center;
     align-items: center;
   }
@@ -102,4 +102,6 @@
   }
   
   /*reddit*/
-  
+  .btn-liteblue{
+    background: #B0E3F6;
+  }
