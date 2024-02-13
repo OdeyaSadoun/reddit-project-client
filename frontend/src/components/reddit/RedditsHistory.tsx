@@ -1,20 +1,17 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-
 import { Link } from "react-router-dom";
 import { getToken } from "../static/GetToken";
 import { RedditSearch } from "../../interfaces/RedditSearch.interface";
+import { format } from "date-fns";
 
 const RedditSearchHistory: React.FC = () => {
-
   const [searches, setSearches] = useState<RedditSearch[]>([]);
-
   const API_URL: string = "http://localhost:8000";
 
   const getHistorySearch = async (): Promise<RedditSearch[] | undefined> => {
     try {
       const token: string = getToken();
-
       const historySearch = await axios.get<RedditSearch[]>(
         `${API_URL}/reddits/history`,
         {
@@ -24,7 +21,6 @@ const RedditSearchHistory: React.FC = () => {
           },
         }
       );
-
       return historySearch.data;
     } catch (error) {
       console.error("Error getting posts:", error);
@@ -47,14 +43,22 @@ const RedditSearchHistory: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <div className="history-container">
       <h2>Search History</h2>
       <div>
         {searches.map((search) => (
           <Link to={`/user/history/${search.id}`} key={search.id}>
-            <li>
-              {search.reddit} - {search.category}
-            </li>
+            <div className="search-box">
+              <div className="search-info">
+                <p className="search-text">{search.reddit}</p>
+                <p className="category-text">{search.category}</p>
+              </div>
+              <div className="date-info">
+                <p className="date-text">
+                  {format(new Date(search.created_date), "dd/MM/yyyy")}
+                </p>
+              </div>
+            </div>
           </Link>
         ))}
       </div>

@@ -71,3 +71,41 @@
   .link-hover-underline::after {
     bottom: -2px; 
   }
+
+  /* RedditSearchHistory.css */
+
+.history-container {
+    margin: 20px;
+  }
+  
+  .search-box {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .search-info {
+    flex: 1;
+  }
+  
+  .date-info {
+    margin-left: 20px;
+  }
+  
+  .search-text {
+    font-weight: bold;
+  }
+  
+  .category-text {
+    color: #555;
+  }
+  
+  .date-text {
+    color: #888;
+  }
+  

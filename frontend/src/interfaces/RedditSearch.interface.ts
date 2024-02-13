@@ -3,4 +3,5 @@ export interface RedditSearch {
     user_id: number;
     reddit: string;
     category: string;
+    created_date: Date;
 }

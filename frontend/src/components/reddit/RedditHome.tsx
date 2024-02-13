@@ -153,8 +153,6 @@ const RedditHome: React.FC = () => {
           ))}
         </div>
       )}
-
-      <RedditSearchHistory />
     </div>
   );
 };
