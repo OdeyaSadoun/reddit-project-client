@@ -24,6 +24,8 @@ const Register: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [incorrectEmailFormat, setIncorrectEmailFormat] = useState<boolean>(false);
+  const [incorrectPasswordFormat, setIncorrectPasswordFormat] = useState<boolean>(false);
 
   const nav = useNavigate();
   const API_URL: string = "http://localhost:8000";
@@ -44,8 +46,19 @@ const Register: React.FC = () => {
       throw err;
     }
   };
+  
   const handleRegister = async () : Promise<void>  => {
-    
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(email)) {
+      setIncorrectEmailFormat(true);
+      return;
+    }
+
+    if (password.length < 8) {
+      setIncorrectPasswordFormat(true);
+      return;
+    }
+
     const newUser: newUser = {
       name,
       email,
@@ -110,6 +123,12 @@ const Register: React.FC = () => {
                   name="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  error={incorrectEmailFormat}
+                  helperText={incorrectEmailFormat && "Please enter a valid email address"}
+                  inputProps={{
+                    pattern: "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
+                    title: "Please enter a valid email address",
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -122,6 +141,12 @@ const Register: React.FC = () => {
                   id="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  error={incorrectPasswordFormat}
+                  helperText={incorrectPasswordFormat && "Password must be at least 8 characters long"}
+                  inputProps={{
+                    minLength: 8,
+                    title: "Password must be at least 8 characters long",
+                  }}
                 />
               </Grid>
             </Grid>
