@@ -7,7 +7,6 @@ import { subredditSearch } from "../../interfaces/SubredditSearch.interface";
 import CategoriesSelector from "./CategoriesSelector";
 import Loading from "../static/Loading";
 import RedditItem from "./RedditItem";
-import RedditSearchHistory from "./RedditsHistory";
 import SearchBar from "../static/SearchBar";
 
 import { getToken } from "../static/GetToken";
@@ -17,6 +16,7 @@ const RedditHome: React.FC = () => {
   const [searchData, setSearchData] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [subreddits, setSubreddits] = useState<Subreddit[]>([]);
+  const [dataNotFound, setDataNotFound] = useState<boolean>(false);
 
   const API_URL: string = "http://localhost:8000";
 
@@ -103,11 +103,15 @@ const RedditHome: React.FC = () => {
         );
         redditData = SubredditPostsResponse.data;
       }
-
       return redditData;
-    } catch (error) {
-      console.log("error", error);
-      console.error("Error fetching subreddits:", error);
+    } catch (error: any) {
+      console.log({error});
+      
+      if (error.response.status == 404) {
+        setDataNotFound(true);
+      } else {
+        console.error("Error fetching subreddits:", error);
+      }
       setLoading(false);
       return [];
     }
@@ -117,9 +121,8 @@ const RedditHome: React.FC = () => {
     const fetchData = async (): Promise<void> => {
       try {
         setLoading(true);
+        setDataNotFound(false);
         const subredditsBySearchAndCategory = await getSubreddits();
-        console.log(subredditsBySearchAndCategory);
-        
         if (subredditsBySearchAndCategory.length > 0) {
           setSubreddits(subredditsBySearchAndCategory);
           let response = await saveSubredditSearchToDB();
@@ -153,6 +156,7 @@ const RedditHome: React.FC = () => {
         </div>
       </div>
       <h2 className="my-5 text-center">{searchData}</h2>
+      {dataNotFound && <p className="text-danger lead text-center">results not found</p>}
       {loading ? (
         <Loading />
       ) : (
