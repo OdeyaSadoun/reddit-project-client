@@ -15,13 +15,17 @@ import {
 } from "@mui/material";
 
 import { Token } from "../../types/Token.type";
-import { getUserInfo, saveTokensToLocalStorage, saveUserToLocalStorage } from "./TokenFuncs";
-
+import {
+  getUserInfo,
+  saveTokensToLocalStorage,
+  saveUserToLocalStorage,
+} from "./TokenFuncs";
 
 const Login: React.FC = () => {
-  
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [incorrectUserOrPassword, setIncorrectUserOrPassword] =
+    useState<boolean>(false);
 
   const nav = useNavigate();
   const API_URL: string = "http://localhost:8000";
@@ -39,11 +43,18 @@ const Login: React.FC = () => {
       );
 
       return userToken.data;
-    } catch (err) {
-      throw err;
+    } catch (error: any) {
+      if (error.response.status == 400) {
+        setIncorrectUserOrPassword(true);
+      } else {
+        console.error("Error login user:", error);
+      }
+      return {
+        access_token: "",
+        refresh_token: "",
+      };
     }
   };
-
 
   const handleLogin = async (): Promise<void> => {
     try {
@@ -101,6 +112,11 @@ const Login: React.FC = () => {
                 setPassword(e.target.value);
               }}
             />
+            {incorrectUserOrPassword && (
+              <Typography sx={{ color: "red", fontSize: 12 }}>
+                Incorrect email or password
+              </Typography>
+            )}
             <Button
               fullWidth
               variant="contained"
@@ -116,6 +132,7 @@ const Login: React.FC = () => {
             >
               Login
             </Button>
+
             <Grid container justifyContent={"center"}>
               <Grid item>Don't have an account? </Grid>
               <Grid item>

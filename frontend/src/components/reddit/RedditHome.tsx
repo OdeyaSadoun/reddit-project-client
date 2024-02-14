@@ -104,9 +104,7 @@ const RedditHome: React.FC = () => {
         redditData = SubredditPostsResponse.data;
       }
       return redditData;
-    } catch (error: any) {
-      console.log({error});
-      
+    } catch (error: any) {      
       if (error.response.status == 404) {
         setDataNotFound(true);
       } else {
