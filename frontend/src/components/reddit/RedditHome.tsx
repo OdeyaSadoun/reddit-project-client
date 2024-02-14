@@ -107,6 +107,7 @@ const RedditHome: React.FC = () => {
     } catch (error: any) {      
       if (error.response.status == 404) {
         setDataNotFound(true);
+        setSubreddits([]);
       } else {
         console.error("Error fetching subreddits:", error);
       }
