@@ -106,6 +106,7 @@ const RedditHome: React.FC = () => {
 
       return redditData;
     } catch (error) {
+      console.log("error", error);
       console.error("Error fetching subreddits:", error);
       setLoading(false);
       return [];
