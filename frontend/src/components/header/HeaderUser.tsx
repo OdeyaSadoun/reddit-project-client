@@ -34,16 +34,16 @@ const HeaderUser: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="col-auto d-lg-none">
+            <div className="col-auto d-md-none">
               <button
                 className="btn btn-outline-dark"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
               >
-                <i className="fas fa-bars"></i>
+                <i className="fas fa-burger"></i>
               </button>
             </div>
             <div
-              className={`col-auto col-lg-auto d-lg-block ${
+              className={`col-auto col-md-auto d-md-block ${
                 isMenuOpen ? "d-block" : "d-none"
               }`}
             >
