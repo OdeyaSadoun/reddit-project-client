@@ -142,30 +142,31 @@ const RedditHome: React.FC = () => {
   }, [searchData, selectedCategory]);
 
   return (
-    <div className="container my-5 ">
-      <div className="d-flex justify-content-between align-items-center">
-        <div className="col-md-6">
-          <SearchBar setSearchData={setSearchData} />
-        </div>
-        <div className="col-md-6 text-end pe-2">
-          <CategoriesSelector
-            setSelectedCategory={setSelectedCategory}
-            selectedCategory={selectedCategory}
-          />
-        </div>
-      </div>
-      <h2 className="my-5 text-center">{searchData}</h2>
-      {dataNotFound && <p className="text-danger lead text-center">results not found</p>}
-      {loading ? (
-        <Loading />
-      ) : (
-        <div className="margin-buttom-container">
-          {subreddits.map((item, index) => (
-            <RedditItem key={index} item={item} />
-          ))}
-        </div>
-      )}
+<div className="container my-5 ">
+  <div className="row">
+    <div className="col-lg-6 col-md-12"> {/* Adjust columns for different screen sizes */}
+      <SearchBar setSearchData={setSearchData} />
     </div>
+    <div className="col-lg-6 col-md-12 text-center text-lg-end  mt-3 mt-lg-0"> {/* Adjust columns for different screen sizes */}
+      <CategoriesSelector
+        setSelectedCategory={setSelectedCategory}
+        selectedCategory={selectedCategory}
+      />
+    </div>
+  </div>
+  <h2 className="my-5 text-center">{searchData}</h2>
+  {dataNotFound && <p className="text-danger lead text-center">results not found</p>}
+  {loading ? (
+    <Loading />
+  ) : (
+    <div className="margin-buttom-container">
+      {subreddits.map((item, index) => (
+        <RedditItem key={index} item={item} />
+      ))}
+    </div>
+  )}
+</div>
+
   );
 };
 
