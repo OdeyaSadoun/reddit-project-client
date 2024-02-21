@@ -1,26 +1,15 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-
-import { LockOutlined } from "@mui/icons-material";
-import {
-  Avatar,
-  Box,
-  Button,
-  Container,
-  CssBaseline,
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 import { newUser } from "../../types/NewUser.type";
+import { Token } from "../../types/Token.type";
 import {
   getUserInfo,
   saveTokensToLocalStorage,
   saveUserToLocalStorage,
 } from "./TokenFuncs";
-import { Token } from "../../types/Token.type";
+
 import RegisterDisplay from "../display/auth/RegisterDisplay";
 
 const Register: React.FC = () => {
