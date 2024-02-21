@@ -12,6 +12,7 @@ import SearchBar from "../logic/static/SearchBar";
 import { getToken } from "../logic/static/GetToken";
 import RedditHomeDisplay from "../display/reddit/RedditHomeDisplay";
 import { RedditSearch } from "../../interfaces/reddit/RedditSearch.interface";
+import { getUserIdFromLocalStorage } from "../logic/static/GetUserIdFromLocalStorage";
 
 const RedditHome: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -21,20 +22,6 @@ const RedditHome: React.FC = () => {
   const [dataNotFound, setDataNotFound] = useState<boolean>(false);
 
   const API_URL: string = "http://localhost:8000";
-
-  const getUserIdFromLocalStorage = (): number => {
-    const user: any = JSON.parse(localStorage.getItem("user") || "");
-    if (!user) {
-      throw new Error("User ID is not available in local storage");
-    }
-
-    const userId = Number(user.id);
-    if (isNaN(userId)) {
-      throw new Error("User ID is not a valid number");
-    }
-
-    return userId;
-  };
 
   const saveSubredditSearchToDB = async (): Promise<RedditSearch> => {
     try {
