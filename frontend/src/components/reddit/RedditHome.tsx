@@ -10,6 +10,8 @@ import RedditItem from "../display/reddit/RedditItem";
 import SearchBar from "../logic/static/SearchBar";
 
 import { getToken } from "../logic/static/GetToken";
+import RedditHomeDisplay from "../display/reddit/RedditHomeDisplay";
+import { RedditSearch } from "../../interfaces/reddit/RedditSearch.interface";
 
 const RedditHome: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -34,9 +36,7 @@ const RedditHome: React.FC = () => {
     return userId;
   };
 
-  const saveSubredditSearchToDB = async (): Promise<
-    subredditSearch | undefined
-  > => {
+  const saveSubredditSearchToDB = async (): Promise<RedditSearch> => {
     try {
       let userId = getUserIdFromLocalStorage();
 
@@ -63,6 +63,7 @@ const RedditHome: React.FC = () => {
       return reddirSearchResponse.data;
     } catch (error) {
       console.error("Error saving search data:", error);
+      throw error; // Ensure the function always returns a rejected Promise in case of error
     }
   };
 
@@ -105,69 +106,33 @@ const RedditHome: React.FC = () => {
       }
       return redditData;
     } catch (error: any) {
-      if (error.response.status == 404) {
+      if (error.response && error.response.status === 404) {
         setDataNotFound(true);
         setSubreddits([]);
       } else {
         console.error("Error fetching subreddits:", error);
       }
-      setLoading(false);
+      setLoading(false); // Set loading state to false in case of error
       return [];
     }
   };
 
-  useEffect(() => {
-    const fetchData = async (): Promise<void> => {
-      try {
-        setLoading(true);
-        setDataNotFound(false);
-        const subredditsBySearchAndCategory = await getSubreddits();
-        if (subredditsBySearchAndCategory.length > 0) {
-          setSubreddits(subredditsBySearchAndCategory);
-          let response = await saveSubredditSearchToDB();
-          if (response) {
-            await saveSubredditPostsSearchToDB(
-              response.id,
-              subredditsBySearchAndCategory
-            );
-          }
-        }
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching subreddits:", error);
-      }
-    };
-
-    fetchData();
-  }, [searchData, selectedCategory]);
-
   return (
-    <div className="container my-5 ">
-      <div className="row">
-        <div className="col-lg-6 col-md-12">
-          <SearchBar setSearchData={setSearchData} />
-        </div>
-        <div className="col-lg-6 col-md-12 text-center text-lg-end  mt-3 mt-lg-0">
-          <CategoriesSelector
-            setSelectedCategory={setSelectedCategory}
-            selectedCategory={selectedCategory}
-          />
-        </div>
-      </div>
-      <h2 className="my-5 text-center">{searchData}</h2>
-      {dataNotFound && (
-        <p className="text-danger lead text-center">results not found</p>
-      )}
-      {loading ? (
-        <Loading />
-      ) : (
-        <div className="margin-buttom-container">
-          {subreddits.map((item, index) => (
-            <RedditItem key={index} item={item} />
-          ))}
-        </div>
-      )}
-    </div>
+    <RedditHomeDisplay
+      loading={loading}
+      setLoading={setLoading}
+      dataNotFound={dataNotFound}
+      setDataNotFound={setDataNotFound}
+      subreddits={subreddits}
+      setSubreddits={setSubreddits}
+      selectedCategory={selectedCategory}
+      setSelectedCategory={setSelectedCategory}
+      getSubreddits={getSubreddits}
+      saveSubredditPostsSearchToDB={saveSubredditPostsSearchToDB}
+      saveSubredditSearchToDB={saveSubredditSearchToDB}
+      searchData={searchData}
+      setSearchData={setSearchData}
+    />
   );
 };
 
