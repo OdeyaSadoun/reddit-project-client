@@ -1,42 +1,22 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
 
-import { getToken } from "../../logic/static/GetToken";
-import { RedditSearch } from "../../../interfaces/reddit/RedditSearch.interface";
 import { isToday } from "../../logic/static/CheckDay";
+import { RedditSearchHistoryDisplayProps } from "../../../interfaces/props/RedditSearchHistoryDisplayProps.interface";
 
-const RedditSearchHistory: React.FC = () => {
-  const [searches, setSearches] = useState<RedditSearch[]>([]);
-
-  const API_URL: string = "http://localhost:8000";
-
-  const getHistorySearch = async (): Promise<RedditSearch[] | undefined> => {
-    try {
-      const token: string = getToken();
-      const historySearch = await axios.get<RedditSearch[]>(
-        `${API_URL}/reddits/history`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      return historySearch.data;
-    } catch (error) {
-      console.error("Error getting posts:", error);
-    }
-  };
-
+const RedditHistoryDisplay: React.FC<RedditSearchHistoryDisplayProps> = ({
+  searches,
+  setsearches,
+  getHistorySearch,
+}) => {
   useEffect(() => {
     const fetchSearchHistory = async (): Promise<void> => {
       try {
         const historySearch = await getHistorySearch();
         if (historySearch) {
-          setSearches(historySearch);
+          setsearches(historySearch);
         }
       } catch (error) {
         console.error("Error fetching search history:", error);
@@ -76,4 +56,4 @@ const RedditSearchHistory: React.FC = () => {
   );
 };
 
-export default RedditSearchHistory;
+export default RedditHistoryDisplay;
