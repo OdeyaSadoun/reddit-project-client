@@ -4,9 +4,9 @@ import React, { useEffect, useState } from "react";
 import { Subreddit } from "../../interfaces/reddit/Subreddit.interface";
 import { subredditSearch } from "../../interfaces/reddit/SubredditSearch.interface";
 
-import CategoriesSelector from "./CategoriesSelector";
+import CategoriesSelector from "../display/reddit/CategoriesSelector";
 import Loading from "../display/static/Loading";
-import RedditItem from "./RedditItem";
+import RedditItem from "../display/reddit/RedditItem";
 import SearchBar from "../logic/static/SearchBar";
 
 import { getToken } from "../logic/static/GetToken";
@@ -104,7 +104,7 @@ const RedditHome: React.FC = () => {
         redditData = SubredditPostsResponse.data;
       }
       return redditData;
-    } catch (error: any) {      
+    } catch (error: any) {
       if (error.response.status == 404) {
         setDataNotFound(true);
         setSubreddits([]);
@@ -142,31 +142,32 @@ const RedditHome: React.FC = () => {
   }, [searchData, selectedCategory]);
 
   return (
-<div className="container my-5 ">
-  <div className="row">
-    <div className="col-lg-6 col-md-12"> 
-      <SearchBar setSearchData={setSearchData} />
+    <div className="container my-5 ">
+      <div className="row">
+        <div className="col-lg-6 col-md-12">
+          <SearchBar setSearchData={setSearchData} />
+        </div>
+        <div className="col-lg-6 col-md-12 text-center text-lg-end  mt-3 mt-lg-0">
+          <CategoriesSelector
+            setSelectedCategory={setSelectedCategory}
+            selectedCategory={selectedCategory}
+          />
+        </div>
+      </div>
+      <h2 className="my-5 text-center">{searchData}</h2>
+      {dataNotFound && (
+        <p className="text-danger lead text-center">results not found</p>
+      )}
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="margin-buttom-container">
+          {subreddits.map((item, index) => (
+            <RedditItem key={index} item={item} />
+          ))}
+        </div>
+      )}
     </div>
-    <div className="col-lg-6 col-md-12 text-center text-lg-end  mt-3 mt-lg-0"> 
-      <CategoriesSelector
-        setSelectedCategory={setSelectedCategory}
-        selectedCategory={selectedCategory}
-      />
-    </div>
-  </div>
-  <h2 className="my-5 text-center">{searchData}</h2>
-  {dataNotFound && <p className="text-danger lead text-center">results not found</p>}
-  {loading ? (
-    <Loading />
-  ) : (
-    <div className="margin-buttom-container">
-      {subreddits.map((item, index) => (
-        <RedditItem key={index} item={item} />
-      ))}
-    </div>
-  )}
-</div>
-
   );
 };
 

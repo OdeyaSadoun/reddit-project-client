@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 
-import RedditItem from "./RedditItem";
+import RedditItem from "../display/reddit/RedditItem";
 
 import { useParams } from "react-router-dom";
 import { Subreddit } from "../../interfaces/reddit/Subreddit.interface";
