@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { format } from "date-fns";
 
 import { getToken } from "../logic/static/GetToken";
-import { RedditSearch } from "../../interfaces/RedditSearch.interface";
+import { RedditSearch } from "../../interfaces/reddit/RedditSearch.interface";
 import { isToday } from "../logic/static/CheckDay";
 
 const RedditSearchHistory: React.FC = () => {

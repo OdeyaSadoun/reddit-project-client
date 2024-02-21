@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
-import { PostScoresProps } from '../../interfaces/PostScoresProps.interface';
+import { PostScoresProps } from '../../interfaces/props/PostScoresProps.interface';
 
 const PostScores: React.FC<PostScoresProps> = ({ upvotes, downvotes }) => {
     return (

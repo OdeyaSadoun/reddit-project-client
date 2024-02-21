@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import RedditItem from "./RedditItem";
 
 import { useParams } from "react-router-dom";
-import { Subreddit } from "../../interfaces/Subreddit.interface";
+import { Subreddit } from "../../interfaces/reddit/Subreddit.interface";
 import { getToken } from "../logic/static/GetToken";
 
 

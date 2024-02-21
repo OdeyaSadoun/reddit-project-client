@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { SearchBarDisplayProps } from "../../../interfaces/SearchBarDisplayProps.interface";
+import { SearchBarDisplayProps } from "../../../interfaces/props/SearchBarDisplayProps.interface";
 
 const SearchBarDisplay: React.FC<SearchBarDisplayProps> = ({
   handleInputChange,

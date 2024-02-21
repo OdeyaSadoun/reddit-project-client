@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-import { Subreddit } from "../../interfaces/Subreddit.interface";
-import { subredditSearch } from "../../interfaces/SubredditSearch.interface";
+import { Subreddit } from "../../interfaces/reddit/Subreddit.interface";
+import { subredditSearch } from "../../interfaces/reddit/SubredditSearch.interface";
 
 import CategoriesSelector from "./CategoriesSelector";
 import Loading from "../display/static/Loading";

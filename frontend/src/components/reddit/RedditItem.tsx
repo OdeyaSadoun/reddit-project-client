@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Card, Button, Badge } from "react-bootstrap";
 
 import PostScores from "./PostScores";
-import { RedditItemProps } from "../../interfaces/RedditItemProps.interface";
+import { RedditItemProps } from "../../interfaces/props/RedditItemProps.interface";
 
 const RedditItem: React.FC<RedditItemProps> = ({ item }) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { RegisterDisplayProps } from "../../../interfaces/RegisterDisplayProps.interface";
+import { RegisterDisplayProps } from "../../../interfaces/props/RegisterDisplayProps.interface";
 
 import { LockOutlined } from "@mui/icons-material";
 import {

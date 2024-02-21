@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { LoginDisplayProps } from "../../../interfaces/LoginDisplayProps.interface";
+import { LoginDisplayProps } from "../../../interfaces/props/LoginDisplayProps.interface";
 
 import { LockOutlined } from "@mui/icons-material";
 import {
