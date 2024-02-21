@@ -3,10 +3,10 @@ import { Routes, Route } from "react-router-dom";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 
-import Footer from "./components/static/Footer";
+import Footer from "./components/display/static/Footer";
 import Header from "./components/display/header/HeaderDisplay";
 import HeaderUser from "./components/display/header/HeaderUserDisplay"; // Import the user header component
-import Home from "./components/static/Home";
+import Home from "./components/display/static/Home";
 import HomeUser from "./components/display/user/HomeUser";
 import Login from "./components/logic/auth/Login";
 import RedditHome from "./components/reddit/RedditHome";

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getGreeting } from "../../static/CheckHour";
+import { getGreeting } from "../static/CheckHour";
 import HeaderUserDisplay from "../../display/header/HeaderUserDisplay";
 
 const HeaderUser: React.FC = () => {

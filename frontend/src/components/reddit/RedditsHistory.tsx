@@ -4,9 +4,9 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
 
-import { getToken } from "../static/GetToken";
+import { getToken } from "../logic/static/GetToken";
 import { RedditSearch } from "../../interfaces/RedditSearch.interface";
-import { isToday } from "../static/CheckDay";
+import { isToday } from "../logic/static/CheckDay";
 
 const RedditSearchHistory: React.FC = () => {
   const [searches, setSearches] = useState<RedditSearch[]>([]);

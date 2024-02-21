@@ -5,11 +5,11 @@ import { Subreddit } from "../../interfaces/Subreddit.interface";
 import { subredditSearch } from "../../interfaces/SubredditSearch.interface";
 
 import CategoriesSelector from "./CategoriesSelector";
-import Loading from "../static/Loading";
+import Loading from "../display/static/Loading";
 import RedditItem from "./RedditItem";
-import SearchBar from "../static/SearchBar";
+import SearchBar from "../logic/static/SearchBar";
 
-import { getToken } from "../static/GetToken";
+import { getToken } from "../logic/static/GetToken";
 
 const RedditHome: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);

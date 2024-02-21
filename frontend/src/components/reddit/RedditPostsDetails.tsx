@@ -5,7 +5,7 @@ import RedditItem from "./RedditItem";
 
 import { useParams } from "react-router-dom";
 import { Subreddit } from "../../interfaces/Subreddit.interface";
-import { getToken } from "../static/GetToken";
+import { getToken } from "../logic/static/GetToken";
 
 
 const RedditPostDetails: React.FC = () => {

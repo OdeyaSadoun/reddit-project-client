@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import { getGreeting } from "../../static/CheckHour";
+import { getGreeting } from "../../logic/static/CheckHour";
 import { HeaderUserProps } from "../../../interfaces/HeaderUserProps.interface";
 
 const HeaderUserDisplay: React.FC<HeaderUserProps> = ({ logOut, getUserFromLocalStorage }) => {
