@@ -9,10 +9,10 @@ import HeaderUser from "./components/display/header/HeaderUserDisplay"; // Impor
 import Home from "./components/display/static/Home";
 import HomeUser from "./components/display/user/HomeUser";
 import Login from "./components/logic/auth/Login";
-import RedditHome from "./components/reddit/RedditHome";
-import RedditPostDetails from "./components/reddit/RedditPostsDetails";
+import RedditHome from "./components/logic/reddit/RedditHome";
+import RedditPostDetails from "./components/logic/reddit/RedditPostsDetails";
 import Register from "./components/logic/auth/Register";
-import RedditSearchHistory from "./components/reddit/RedditsHistory";
+import RedditSearchHistory from "./components/logic/reddit/RedditsHistory";
 
 import "./App.css";
 import { HeadersRoutes } from "./components/logic/header/HeaderRoutes";

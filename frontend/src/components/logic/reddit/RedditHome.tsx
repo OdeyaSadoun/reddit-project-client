@@ -1,18 +1,18 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-import { Subreddit } from "../../interfaces/reddit/Subreddit.interface";
-import { subredditSearch } from "../../interfaces/reddit/SubredditSearch.interface";
+import { Subreddit } from "../../../interfaces/reddit/Subreddit.interface";
+import { subredditSearch } from "../../../interfaces/reddit/SubredditSearch.interface";
 
-import CategoriesSelector from "../display/reddit/CategoriesSelector";
-import Loading from "../display/static/Loading";
-import RedditItem from "../display/reddit/RedditItem";
-import SearchBar from "../logic/static/SearchBar";
+import CategoriesSelector from "../../display/reddit/CategoriesSelector";
+import Loading from "../../display/static/Loading";
+import RedditItem from "../../display/reddit/RedditItem";
+import SearchBar from "../static/SearchBar";
 
-import { getToken } from "../logic/static/GetToken";
-import RedditHomeDisplay from "../display/reddit/RedditHomeDisplay";
-import { RedditSearch } from "../../interfaces/reddit/RedditSearch.interface";
-import { getUserIdFromLocalStorage } from "../logic/static/GetUserIdFromLocalStorage";
+import { getToken } from "../static/GetToken";
+import RedditHomeDisplay from "../../display/reddit/RedditHomeDisplay";
+import { RedditSearch } from "../../../interfaces/reddit/RedditSearch.interface";
+import { getUserIdFromLocalStorage } from "../static/GetUserIdFromLocalStorage";
 
 const RedditHome: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);

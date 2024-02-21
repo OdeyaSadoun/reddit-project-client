@@ -1,5 +1,5 @@
 import React from 'react'
-import RedditHome from '../../reddit/RedditHome'
+import RedditHome from '../../logic/reddit/RedditHome'
 
 const HomeUser: React.FC = () => {
   return (
