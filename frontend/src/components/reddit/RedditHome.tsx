@@ -144,10 +144,10 @@ const RedditHome: React.FC = () => {
   return (
 <div className="container my-5 ">
   <div className="row">
-    <div className="col-lg-6 col-md-12"> {/* Adjust columns for different screen sizes */}
+    <div className="col-lg-6 col-md-12"> 
       <SearchBar setSearchData={setSearchData} />
     </div>
-    <div className="col-lg-6 col-md-12 text-center text-lg-end  mt-3 mt-lg-0"> {/* Adjust columns for different screen sizes */}
+    <div className="col-lg-6 col-md-12 text-center text-lg-end  mt-3 mt-lg-0"> 
       <CategoriesSelector
         setSelectedCategory={setSelectedCategory}
         selectedCategory={selectedCategory}
