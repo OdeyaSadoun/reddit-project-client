@@ -1,43 +1,14 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 import RedditItem from "./RedditItem";
+import { RedditPostDetailsDisplayProps } from "../../../interfaces/props/RedditPostDetailsDisplayProps.interface";
 
-import { useParams } from "react-router-dom";
-import { Subreddit } from "../../../interfaces/reddit/Subreddit.interface";
-import { getToken } from "../../logic/static/GetToken";
-
-
-const RedditPostDetails: React.FC = () => {
-  
-  const [posts, setPosts] = useState<Subreddit[]>([]);
-
-  const { reddit_id } = useParams<{ reddit_id: string }>();
-
-  const API_URL: string = "http://localhost:8000";
-
-  const getPostsByHistorySearch = async (): Promise<
-    Subreddit[] | undefined
-  > => {
-    try {
-      const token: string = getToken();
-
-      const postsByHistorySearch = await axios.get<Subreddit[]>(
-        `${API_URL}/reddits/history/${reddit_id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      return postsByHistorySearch.data;
-    } catch (error) {
-      console.error("Error getting posts:", error);
-    }
-  };
-
+const RedditPostDetailsDisplay: React.FC<RedditPostDetailsDisplayProps> = ({
+  redditId,
+  getPostsByHistorySearch,
+  posts,
+  setPosts,
+}) => {
   useEffect(() => {
     const fetchPosts = async (): Promise<void> => {
       try {
@@ -51,7 +22,7 @@ const RedditPostDetails: React.FC = () => {
     };
 
     fetchPosts();
-  }, [reddit_id]);
+  }, [redditId]);
 
   return (
     <div className="container my-5">
@@ -65,4 +36,4 @@ const RedditPostDetails: React.FC = () => {
   );
 };
 
-export default RedditPostDetails;
+export default RedditPostDetailsDisplay;

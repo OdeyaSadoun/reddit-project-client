@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 
-import RedditItem from "../../display/reddit/RedditItem";
 
 import { useParams } from "react-router-dom";
 import { Subreddit } from "../../../interfaces/reddit/Subreddit.interface";
 import { getToken } from "../static/GetToken";
+import RedditPostDetailsDisplay from "../../display/reddit/RedditPostsDetailsDisplay";
 
 
 const RedditPostDetails: React.FC = () => {
@@ -38,30 +38,14 @@ const RedditPostDetails: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchPosts = async (): Promise<void> => {
-      try {
-        const postsByHistorySearch = await getPostsByHistorySearch();
-        if (postsByHistorySearch) {
-          setPosts(postsByHistorySearch);
-        }
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-      }
-    };
-
-    fetchPosts();
-  }, [reddit_id]);
 
   return (
-    <div className="container my-5">
-      <h2 className="text-center display-6 py-3">Posts Related </h2>
-      <div className="margin-buttom-container">
-        {posts.map((item, index) => (
-          <RedditItem key={index} item={item} />
-        ))}
-      </div>
-    </div>
+    <RedditPostDetailsDisplay
+    redditId={reddit_id}
+    getPostsByHistorySearch={getPostsByHistorySearch}
+    posts={posts}
+    setPosts={setPosts}
+  />
   );
 };
 
