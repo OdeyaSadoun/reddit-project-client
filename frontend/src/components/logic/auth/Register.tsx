@@ -2,15 +2,15 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { newUser } from "../../types/NewUser.type";
-import { Token } from "../../types/Token.type";
+import { newUser } from "../../../types/NewUser.type";
+import { Token } from "../../../types/Token.type";
 import {
   getUserInfo,
   saveTokensToLocalStorage,
   saveUserToLocalStorage,
 } from "./TokenFuncs";
 
-import RegisterDisplay from "../display/auth/RegisterDisplay";
+import RegisterDisplay from "../../display/auth/RegisterDisplay";
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState<string>("");

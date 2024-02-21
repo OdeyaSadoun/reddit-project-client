@@ -4,18 +4,18 @@ import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 
 import Footer from "./components/static/Footer";
-import Header from "./components/header/Header";
-import HeaderUser from "./components/header/HeaderUser"; // Import the user header component
+import Header from "./components/display/header/HeaderDisplay";
+import HeaderUser from "./components/display/header/HeaderUserDisplay"; // Import the user header component
 import Home from "./components/static/Home";
 import HomeUser from "./components/user/HomeUser";
-import Login from "./components/auth/Login";
+import Login from "./components/logic/auth/Login";
 import RedditHome from "./components/reddit/RedditHome";
 import RedditPostDetails from "./components/reddit/RedditPostsDetails";
-import Register from "./components/auth/Register";
+import Register from "./components/logic/auth/Register";
 import RedditSearchHistory from "./components/reddit/RedditsHistory";
 
 import "./App.css";
-import { HeadersRoutes } from "./components/header/HeaderRoutes";
+import { HeadersRoutes } from "./components/logic/header/HeaderRoutes";
 
 function App() {
   const [tokenExists, setTokenExists] = useState<boolean>(

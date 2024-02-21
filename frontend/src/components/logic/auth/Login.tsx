@@ -2,14 +2,14 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Token } from "../../types/Token.type";
+import { Token } from "../../../types/Token.type";
 import {
   getUserInfo,
   saveTokensToLocalStorage,
   saveUserToLocalStorage,
 } from "./TokenFuncs";
 
-import LoginDisplay from "../display/auth/LoginDisplay";
+import LoginDisplay from "../../display/auth/LoginDisplay";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");

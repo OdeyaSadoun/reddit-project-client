@@ -1,23 +1,11 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { getGreeting } from "../static/CheckHour";
+import { Link } from "react-router-dom";
 
-const HeaderUser: React.FC = () => {
+import { getGreeting } from "../../static/CheckHour";
+import { HeaderUserProps } from "../../../interfaces/HeaderUserProps.interface";
+
+const HeaderUserDisplay: React.FC<HeaderUserProps> = ({ logOut, getUserFromLocalStorage }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const nav = useNavigate();
-
-  const getUserFromLocalStorage = (): string => {
-    const userString = localStorage.getItem("user");
-    const user = userString ? JSON.parse(userString) : null;
-    return user.name;
-  };
-
-  const logOut = (): void => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token");
-    nav("/");
-  };
 
   return (
     <div className="main-header">
@@ -71,4 +59,4 @@ const HeaderUser: React.FC = () => {
   );
 };
 
-export default HeaderUser;
+export default HeaderUserDisplay;
