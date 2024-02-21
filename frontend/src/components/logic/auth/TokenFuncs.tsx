@@ -6,7 +6,7 @@ const API_URL: string = "http://localhost:8000";
 export const getUserInfo = async (accessToken: string): Promise<User> => {
   try {
     const currentUser = await axios.get<User>(
-      `${API_URL}/users/get_user_info`,
+      `${API_URL}/users/userinfo`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

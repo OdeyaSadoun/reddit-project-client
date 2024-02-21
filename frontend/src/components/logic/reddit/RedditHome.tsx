@@ -87,7 +87,7 @@ const RedditHome: React.FC = () => {
       let redditData: Subreddit[] = [];
       if (searchData !== "" && selectedCategory !== "") {
         const SubredditPostsResponse = await axios.get<Subreddit[]>(
-          `${API_URL}/reddits/get_posts_by_subreddit?subreddit=${searchData}&category=${selectedCategory}`
+          `${API_URL}/reddits/postsbysubreddit?subreddit=${searchData}&category=${selectedCategory}`
         );
         redditData = SubredditPostsResponse.data;
       }
