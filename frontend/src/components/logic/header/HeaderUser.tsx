@@ -4,7 +4,6 @@ import { getGreeting } from "../static/CheckHour";
 import HeaderUserDisplay from "../../display/header/HeaderUserDisplay";
 
 const HeaderUser: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const nav = useNavigate();
 
   const getUserFromLocalStorage = (): string => {

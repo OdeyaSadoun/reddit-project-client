@@ -1,13 +1,8 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { Subreddit } from "../../../interfaces/reddit/Subreddit.interface";
 import { subredditSearch } from "../../../interfaces/reddit/SubredditSearch.interface";
-
-import CategoriesSelector from "../../display/reddit/CategoriesSelector";
-import Loading from "../../display/static/Loading";
-import RedditItem from "../../display/reddit/RedditItem";
-import SearchBar from "../static/SearchBar";
 
 import { getToken } from "../static/GetToken";
 import RedditHomeDisplay from "../../display/reddit/RedditHomeDisplay";
@@ -50,7 +45,7 @@ const RedditHome: React.FC = () => {
       return reddirSearchResponse.data;
     } catch (error) {
       console.error("Error saving search data:", error);
-      throw error; // Ensure the function always returns a rejected Promise in case of error
+      throw error; 
     }
   };
 
@@ -99,7 +94,7 @@ const RedditHome: React.FC = () => {
       } else {
         console.error("Error fetching subreddits:", error);
       }
-      setLoading(false); // Set loading state to false in case of error
+      setLoading(false); 
       return [];
     }
   };
